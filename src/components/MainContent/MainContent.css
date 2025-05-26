@@ -1,0 +1,13 @@
+.content-body {
+    margin: 115px 0px 0px 300px;
+    /* flex: 4; */
+    height: auto;
+    width: calc(100% - 300px);
+    background-color: #FAFAFA;
+}
+
+.content-body__content {
+    margin: 15px;
+    /* display: flex; */
+
+}
