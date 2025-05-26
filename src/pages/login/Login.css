@@ -72,3 +72,11 @@
     color: #03AEEE;
     font-size: 12px;
 }
+
+.button--login {
+    height: 50px;
+    color: white;
+    background-color: #03AEEE;
+    box-shadow: 1px 1px 5px #03AEEE;
+    border-color: transparent;
+}

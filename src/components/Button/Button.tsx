@@ -1,8 +1,8 @@
 import './Button.css'
 
-const Button = ({buttonName}: {buttonName: string}) => {
+const Button = ({buttonName, variant}: {buttonName: string, variant: string}) => {
     return (
-        <button className='custom-button'>{buttonName}</button>
+        <button className={`custom-button button--${variant}`}>{buttonName}</button>
     )
 }
 
