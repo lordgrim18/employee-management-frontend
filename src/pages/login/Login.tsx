@@ -10,7 +10,10 @@ import useMousePosition from "../../hooks/useMousePosition";
 
 const Login = () => {
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [validUsername, setValidUsername] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+
   const usernameRef = useRef<HTMLInputElement>(null);
   const mousePosition = useMousePosition();
 
@@ -19,7 +22,7 @@ const Login = () => {
   }) => {
     setUsername(event.target.value);
   };
- 
+
   useEffect(() => {
     if (username.length >= 10) {
       setValidUsername(true);
@@ -30,12 +33,23 @@ const Login = () => {
   }, [username]);
 
   useEffect(() => {
+    localStorage.setItem("password", password);
+  }, [password]);
+
+  useEffect(() => {
     if (usernameRef.current) {
       usernameRef.current.focus();
     }
   }, []);
- 
-  const invalidMessage = validUsername ? <p> </p> : <p style={{ color: 'red' }}> Invalid Username - Must be atleast 10 characters</p>;
+
+  const invalidMessage = validUsername ? (
+    <p> </p>
+  ) : (
+    <p style={{ color: "red" }}>
+      {" "}
+      Invalid Username - Must be atleast 10 characters
+    </p>
+  );
 
   return (
     <div className="login-page">
@@ -58,7 +72,20 @@ const Login = () => {
               ref={usernameRef}
             />
             {invalidMessage}
-            <LoginInput id="login-password" label="Password" type="password" />
+            <LoginInput
+              id="login-password"
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <LoginInput
+              id="login-show-password"
+              label="Show Password"
+              type="checkbox"
+              value={showPassword}
+              onChange={() => setShowPassword((prev) => !prev)}
+            />
           </div>
           <Button buttonName="Logging in" variant="login" />
         </div>

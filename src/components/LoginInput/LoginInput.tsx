@@ -4,7 +4,7 @@ interface LoginInputProps {
     id: string,
     label: string,
     type?: string,
-    value?: string,
+    value?: string | boolean,
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
     ref?: React.RefObject<HTMLInputElement | null>;
 }
