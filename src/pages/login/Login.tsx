@@ -2,8 +2,8 @@ import "./Login.css";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 
-import loginSideLogo from "../../assets/kv-login.jpeg";
-import KVlogo from "../../assets/kv-logo.png";
+import loginSideLogo from "../../../public/assets/kv-login.jpeg";
+import KVlogo from "../../../public/assets/kv-logo.png";
 
 const Login = () => {
   return (

@@ -1,9 +1,9 @@
 import "./EmployeeForm.css";
 
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import Select from "../Select/Select";
-import MultiInput from "../MultiInput/MultiInput";
+import Input from "../../Input/Input";
+import Button from "../../Button/Button";
+import Select from "../../Select/Select";
+import MultiInput from "../../MultiInput/MultiInput";
 
 const EmployeeForm = () => {
   return (
