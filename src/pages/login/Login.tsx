@@ -1,11 +1,42 @@
 import "./Login.css";
-import Input from "../../components/Input/Input";
+import LoginInput from "../../components/LoginInput/LoginInput";
 import Button from "../../components/Button/Button";
 
 import loginSideLogo from "../../../public/assets/kv-login.jpeg";
 import KVlogo from "../../../public/assets/kv-logo.png";
+import { useEffect, useRef, useState, type SetStateAction } from "react";
+
+import useMousePosition from "../../hooks/useMousePosition";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [validUsername, setValidUsername] = useState(true);
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const mousePosition = useMousePosition();
+
+  const updateUsername = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setUsername(event.target.value);
+  };
+ 
+  useEffect(() => {
+    if (username.length >= 10) {
+      setValidUsername(true);
+      return;
+    }
+    setValidUsername(false);
+    return;
+  }, [username]);
+
+  useEffect(() => {
+    if (usernameRef.current) {
+      usernameRef.current.focus();
+    }
+  }, []);
+ 
+  const invalidMessage = validUsername ? <p> </p> : <p style={{ color: 'red' }}> Invalid Username - Must be atleast 10 characters</p>;
+
   return (
     <div className="login-page">
       <div className="side-banner">
@@ -13,22 +44,21 @@ const Login = () => {
       </div>
       <div className="login-form">
         <div className="login-form-content">
+          <div>
+            <h3>Mouse x - {mousePosition.x}</h3>
+            <h3>Mouse y - {mousePosition.y}</h3>
+          </div>
           <img src={KVlogo} alt="kv-logo" className="kv-logo" />
           <div className="login-form__form">
-            <Input
-              inputId="login-username"
-              inputType="text"
-              labelName="Username"
-              variant="login"
-              inputPlaceholder=""
+            <LoginInput
+              id="login-username"
+              label="Username"
+              value={username}
+              onChange={updateUsername}
+              ref={usernameRef}
             />
-            <Input
-              inputId="login-password"
-              inputType="password"
-              labelName="Password"
-              variant="login"
-              inputPlaceholder=""
-            ></Input>
+            {invalidMessage}
+            <LoginInput id="login-password" label="Password" type="password" />
           </div>
           <Button buttonName="Logging in" variant="login" />
         </div>
