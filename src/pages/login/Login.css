@@ -80,3 +80,7 @@
     box-shadow: 1px 1px 5px #03AEEE;
     border-color: transparent;
 }
+
+.login--clear-button {
+    padding: 10px;
+}

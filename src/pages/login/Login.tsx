@@ -57,7 +57,7 @@ const Login = () => {
         <img src={loginSideLogo} alt="side-banner" />
       </div>
       <div className="login-form">
-        <div className="login-form-content">
+        <form className="login-form-content">
           <div>
             <h3>Mouse x - {mousePosition.x}</h3>
             <h3>Mouse y - {mousePosition.y}</h3>
@@ -70,6 +70,15 @@ const Login = () => {
               value={username}
               onChange={updateUsername}
               ref={usernameRef}
+              endAdornment={
+                <button
+                  className="login--clear-button"
+                  disabled={username.length === 0}
+                  onClick={() => setUsername("")}
+                >
+                  Clear
+                </button>
+              }
             />
             {invalidMessage}
             <LoginInput
@@ -78,17 +87,25 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              endAdornment={
+                <button
+                  className="login--clear-button"
+                  onClick={() => setPassword("")}
+                >
+                  Clear
+                </button>
+              }
             />
             <LoginInput
               id="login-show-password"
               label="Show Password"
               type="checkbox"
-              value={showPassword}
+              value={showPassword as unknown as string}
               onChange={() => setShowPassword((prev) => !prev)}
             />
           </div>
           <Button buttonName="Logging in" variant="login" />
-        </div>
+        </form>
       </div>
     </div>
   );
