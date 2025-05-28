@@ -10,6 +10,7 @@ interface LoginInputProps {
   ref?: React.RefObject<HTMLInputElement | null>;
   endAdornment?: React.ReactNode;
   checked?: boolean;
+  required?: boolean;
 }
 
 const LoginInput = ({
@@ -20,7 +21,8 @@ const LoginInput = ({
   onChange,
   ref,
   endAdornment = null,
-  checked
+  checked,
+  required = true
 }: LoginInputProps) => {
   console.log("hi", checked);
   return (
@@ -34,7 +36,7 @@ const LoginInput = ({
           onChange={onChange}
           ref={ref}
           defaultChecked={checked}
-          required
+          required = {required && true }
         />
         <label htmlFor={id}>{label}</label>
       </div>

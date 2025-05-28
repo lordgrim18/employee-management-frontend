@@ -123,6 +123,7 @@ const Login = () => {
                 return !prev
               })}
               checked={showPassword}
+              required={false}
             />
           </div>
           <Button type="submit" onClick={loginUser} buttonName="Logging in" variant="login" />

@@ -53,28 +53,65 @@
 }
 
 .form-element--login input {
-    height: 45px;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #b4b7bd;
+    border-radius: 0;
+    padding: 14.5px 16.79px;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.364;
+    background: none;
 }
 
-/* .form-element--login label {
+.form-element--login label {
     position: absolute;
-    left: 15px;
-    top: 10px;
-} */
+    left: 16.79px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 5px;
+    background-color: transparent;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    line-height: 1.364;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+}
 
 .form-element--login input:focus {
-    color: #03AEEE;
-    border: 2px solid rgb(211, 208, 208);
+    border-color: #1eb4f0;
+    outline: none;
 }
 
 .form-element--login input[type="checkbox"]:focus {
     outline: transparent;
 }
 
-.form-element--login input:focus+.form-element label {
-    top: -10px;
-    color: #03AEEE;
-    font-size: 12px;
+.form-element--login input:not(:placeholder-shown) + label {
+  top: -10px;
+  transform: translateY(0);
+  font-size: 14px;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.form-element--login input:focus + label {
+  top: -10px;
+  transform: translateY(0);
+  font-size: 14px;
+  color: #1eb4f0;
+  background-color: #ffffff;
+}
+
+.form-element--login input[type="checkbox"]:focus + label {
+    color:#000000;
+}
+
+.form-element--logininput input::placeholder {
+  color: transparent;
 }
 
 .button--login {
