@@ -1,0 +1,17 @@
+.form-element--login-show-password {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    gap: 20px;
+}
+
+.form-element--login-show-password input{
+    margin-top: 2.5px;
+    margin-left: 10px ;
+    height: 20px;
+}
+
+.form-element--login-show-password label {
+    position: static;
+
+}
