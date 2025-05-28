@@ -24,7 +24,6 @@ const LoginInput = ({
   checked,
   required = true
 }: LoginInputProps) => {
-  console.log("hi", checked);
   return (
     <div className={`form-element-parent--${id}`} style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
       <div className={`form-element form-element--login form-element--${id}`}>

@@ -7,6 +7,7 @@ import KVlogo from "../../../public/assets/kv-logo.png";
 import { useEffect, useRef, useState, type SetStateAction } from "react";
 
 import useMousePosition from "../../hooks/useMousePosition";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const sampleUser = {
   username: "John",
@@ -16,15 +17,14 @@ const sampleUser = {
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [validUsername, setValidUsername] = useState(true);
   const [showPassword, setShowPassword] = useState(localStorage.getItem("showPassword") === "true");
-  const [erro, setError] = useState({
+  const [error, setError] = useState({
     error: "",
     usernameError: "",
     passwordError: ""
   })
 
-  console.log(showPassword);
+  const navigate = useNavigate()
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const mousePosition = useMousePosition();
@@ -35,14 +35,43 @@ const Login = () => {
     setUsername(event.target.value);
   };
 
+
   useEffect(() => {
-    if (username.length >= 10) {
-      setValidUsername(true);
+    if (username.length < 4 && username.length > 0) {
+      setError((prevError) => ({
+        ...prevError,
+        usernameError: "Username should be atleast 4 characters long"
+      }));
       return;
     }
-    setValidUsername(false);
+    setError((prevError) => ({
+      ...prevError,
+      usernameError: ""
+    }));
     return;
   }, [username]);
+
+  useEffect(() => {
+    if (password.length < 5 && password.length > 0) {
+      setError((prevError) => ({
+        ...prevError,
+        passwordError: "Password should be atleast 5 characters long"
+      }));
+      return;
+    }
+    setError((prevError) => ({
+      ...prevError,
+      passwordError: ""
+    }));
+    return;
+  }, [password]);
+
+  useEffect(() => {
+    setError((prevError) => ({
+        ...prevError,
+        error: ""
+      }))
+  }, [username, password])
 
   useEffect(() => {
     if (usernameRef.current) {
@@ -53,17 +82,27 @@ const Login = () => {
   const loginUser = () => {
     if (username === sampleUser.username && password === sampleUser.password) {
       localStorage.setItem("isLoggedIn", "true");
+      setError((prevError) => ({
+        ...prevError,
+        error: ""
+      }))
+      navigate("/employees/create")
+    } else {
+      setError((prevError) => ({
+        ...prevError,
+        error: "Incorrect username or password"
+      }))
     }
   }
 
-  const invalidMessage = validUsername ? (
-    <p> </p>
-  ) : (
-    <p style={{ color: "red" }}>
-      {" "}
-      Invalid Username - Must be atleast 10 characters
-    </p>
-  );
+  const isLoggedIn = () => {
+    const token = localStorage.getItem("isLoggedIn");
+    return token === "true";
+  };
+
+  if (isLoggedIn()) {
+    return <Navigate to='/employees/create' />
+  }
 
   return (
     <div className="login-page">
@@ -95,7 +134,8 @@ const Login = () => {
                 </button>
               }
             />
-            {invalidMessage}
+            {error.usernameError && <span style={{ color: 'red', fontSize: '12px' }}>{error.usernameError}</span>}
+
             <LoginInput
               id="login-password"
               label="Password"
@@ -113,6 +153,8 @@ const Login = () => {
                 </button>
               }
             />
+            {error.passwordError && <span style={{ color: 'red', fontSize: '12px' }}>{error.passwordError}</span>}
+
             <LoginInput
               id="login-show-password"
               label="Show Password"
@@ -126,7 +168,8 @@ const Login = () => {
               required={false}
             />
           </div>
-          <Button type="submit" onClick={loginUser} buttonName="Logging in" variant="login" />
+          <Button type="button" onClick={loginUser} buttonName="Logging in" variant="login" />
+          {error.error && <span style={{ color: 'red', fontSize: '12px' }}>{error.error}</span>}
         </form>
       </div>
     </div>

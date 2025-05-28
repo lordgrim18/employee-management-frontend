@@ -9,15 +9,10 @@ import EmployeeContentLayout from './components/EmployeeContentLayout/EmployeeCo
 import Header from './components/EmployeeContentLayout/Header/Header'
 import EmployeeForm from './components/EmployeeContentLayout/EmployeeForm/EmployeeForm'
 
-const isLoggedIn = () => {
-  const token = localStorage.getItem("isLoggedIn");
-  return token === "true";
-}
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: isLoggedIn() ? <Navigate to="/employees/create" /> : <Login />
+    element: <Login />
   },
   {
     path: "/login/uncontrolled",
@@ -25,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/employees/create",
-    element: isLoggedIn() ? <EmployeeLayout /> : <Navigate to="/" />,
+    element: <EmployeeLayout />,
     children: [
       {index: true, element: <EmployeeContentLayout>
                 <Header title='Create Employee' />
