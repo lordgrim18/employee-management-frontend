@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter,  RouterProvider } from 'react-router-dom'
 import './App.css'
 import CreateEmployee from './pages/createEmployee/CreateEmployee'
 import Login from './pages/login/Login'
@@ -8,6 +8,8 @@ import EmployeeLayout from './components/EmployeeLayout/EmployeeLayout'
 import EmployeeContentLayout from './components/EmployeeContentLayout/EmployeeContentLayout'
 import Header from './components/EmployeeContentLayout/Header/Header'
 import EmployeeForm from './components/EmployeeContentLayout/EmployeeForm/EmployeeForm'
+import EmployeeDetails from './components/EmployeeContentLayout/EmployeeDetails/EmployeeDetails'
+
 
 const router = createBrowserRouter([
   {
@@ -19,13 +21,11 @@ const router = createBrowserRouter([
     element: <UncontrolledLogin />
   },
   {
-    path: "/employees/create",
+    path: "/employees",
     element: <EmployeeLayout />,
     children: [
-      {index: true, element: <EmployeeContentLayout>
-                <Header title='Create Employee' />
-                <EmployeeForm />
-            </EmployeeContentLayout>}
+      {index: true, element: <EmployeeForm />},
+      {path: ":id", element: <EmployeeDetails />}
     ]
   },
   {
