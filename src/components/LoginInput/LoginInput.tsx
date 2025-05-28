@@ -9,6 +9,7 @@ interface LoginInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   ref?: React.RefObject<HTMLInputElement | null>;
   endAdornment?: React.ReactNode;
+  checked?: boolean;
 }
 
 const LoginInput = ({
@@ -19,7 +20,9 @@ const LoginInput = ({
   onChange,
   ref,
   endAdornment = null,
+  checked
 }: LoginInputProps) => {
+  console.log("hi", checked);
   return (
     <div className={`form-element-parent--${id}`} style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
       <div className={`form-element form-element--login form-element--${id}`}>
@@ -30,6 +33,7 @@ const LoginInput = ({
           value={value}
           onChange={onChange}
           ref={ref}
+          defaultChecked={checked}
           required
         />
         <label htmlFor={id}>{label}</label>

@@ -8,11 +8,23 @@ import { useEffect, useRef, useState, type SetStateAction } from "react";
 
 import useMousePosition from "../../hooks/useMousePosition";
 
+const sampleUser = {
+  username: "John",
+  password: "Password"
+}
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validUsername, setValidUsername] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(localStorage.getItem("showPassword") === "true");
+  const [erro, setError] = useState({
+    error: "",
+    usernameError: "",
+    passwordError: ""
+  })
+
+  console.log(showPassword);
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const mousePosition = useMousePosition();
@@ -33,14 +45,16 @@ const Login = () => {
   }, [username]);
 
   useEffect(() => {
-    localStorage.setItem("password", password);
-  }, [password]);
-
-  useEffect(() => {
     if (usernameRef.current) {
       usernameRef.current.focus();
     }
   }, []);
+
+  const loginUser = () => {
+    if (username === sampleUser.username && password === sampleUser.password) {
+      localStorage.setItem("isLoggedIn", "true");
+    }
+  }
 
   const invalidMessage = validUsername ? (
     <p> </p>
@@ -73,6 +87,7 @@ const Login = () => {
               endAdornment={
                 <button
                   className="login--clear-button"
+                  type="button"
                   disabled={username.length === 0}
                   onClick={() => setUsername("")}
                 >
@@ -90,6 +105,8 @@ const Login = () => {
               endAdornment={
                 <button
                   className="login--clear-button"
+                  type="button"
+                  disabled={password.length === 0 }
                   onClick={() => setPassword("")}
                 >
                   Clear
@@ -100,11 +117,15 @@ const Login = () => {
               id="login-show-password"
               label="Show Password"
               type="checkbox"
-              value={showPassword as unknown as string}
-              onChange={() => setShowPassword((prev) => !prev)}
+              // {setShowPassword ? "checked" : }
+              onChange={() => setShowPassword((prev) => {
+                localStorage.setItem("showPassword", String(!prev))
+                return !prev
+              })}
+              checked={showPassword}
             />
           </div>
-          <Button buttonName="Logging in" variant="login" />
+          <Button type="submit" onClick={loginUser} buttonName="Logging in" variant="login" />
         </form>
       </div>
     </div>

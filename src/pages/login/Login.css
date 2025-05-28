@@ -56,15 +56,19 @@
     height: 45px;
 }
 
-.form-element--login label {
+/* .form-element--login label {
     position: absolute;
     left: 15px;
     top: 10px;
-}
+} */
 
 .form-element--login input:focus {
     color: #03AEEE;
     border: 2px solid rgb(211, 208, 208);
+}
+
+.form-element--login input[type="checkbox"]:focus {
+    outline: transparent;
 }
 
 .form-element--login input:focus+.form-element label {

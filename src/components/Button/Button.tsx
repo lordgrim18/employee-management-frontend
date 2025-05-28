@@ -1,8 +1,10 @@
+import type React from 'react';
 import './Button.css'
+import type { MouseEventHandler } from 'react';
 
-const Button = ({buttonName, variant}: {buttonName: string, variant: string}) => {
+const Button = ({type, onClick, buttonName, variant}: {type?: "submit" | "reset" | "button", onClick: MouseEventHandler<HTMLButtonElement>, buttonName: string, variant: string}) => {
     return (
-        <button className={`custom-button button--${variant}`}>{buttonName}</button>
+        <button type={type} onClick={onClick} className={`custom-button button--${variant}`}>{buttonName}</button>
     )
 }
 

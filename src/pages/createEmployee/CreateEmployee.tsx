@@ -7,7 +7,6 @@ import EmployeeForm from '../../components/EmployeeContentLayout/EmployeeForm/Em
 const CreateEmployee = () => {
     return (
         <EmployeeLayout>
-            <Sidebar />
             <EmployeeContentLayout>
                 <Header title='Create Employee' />
                 <EmployeeForm />
