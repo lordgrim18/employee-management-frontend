@@ -1,14 +1,14 @@
 import { createBrowserRouter,  RouterProvider } from 'react-router-dom'
+
 import './App.css'
-import CreateEmployee from './pages/createEmployee/CreateEmployee'
 import Login from './pages/login/Login'
 import UncontrolledLogin from './pages/unControlledLogin/UnControlledLogin'
 import NotFound from './pages/notFound/NotFound'
 import EmployeeLayout from './components/EmployeeLayout/EmployeeLayout'
-import EmployeeContentLayout from './components/EmployeeContentLayout/EmployeeContentLayout'
-import Header from './components/EmployeeContentLayout/Header/Header'
-import EmployeeForm from './components/EmployeeContentLayout/EmployeeForm/EmployeeForm'
-import EmployeeDetails from './components/EmployeeContentLayout/EmployeeDetails/EmployeeDetails'
+import EmployeeDetails from './components/EmployeeContent/EmployeeDetails/EmployeeDetails'
+import EmployeeList from './components/EmployeeContent/EmployeeList/EmployeeList'
+import CreateEmployee from './pages/createEmployee/CreateEmployee'
+import UpdateEmployee from './pages/updateEmployee/updateEmployee'
 
 
 const router = createBrowserRouter([
@@ -24,8 +24,10 @@ const router = createBrowserRouter([
     path: "/employees",
     element: <EmployeeLayout />,
     children: [
-      {index: true, element: <EmployeeForm />},
-      {path: ":id", element: <EmployeeDetails />}
+      {index: true, element: <EmployeeList />},
+      {path: "create", element: <CreateEmployee />},
+      {path: ":id", element: <EmployeeDetails />},
+      {path: ":id/update", element: <UpdateEmployee />}
     ]
   },
   {

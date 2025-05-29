@@ -12,4 +12,10 @@
     border: 0.5px rgb(211, 208, 208) solid;
     padding-left: 10px;
     background-color: #fafafa;
+    cursor: pointer;
+}
+
+.form-element input:disabled {
+    background-color: #D1D1D1;
+    cursor: not-allowed;
 }

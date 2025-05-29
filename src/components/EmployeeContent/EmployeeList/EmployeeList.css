@@ -1,0 +1,62 @@
+.create-icon {
+    padding: 17px 20px;
+}
+
+.content-body__header__functions {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+}
+
+.form-element--filter {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-element--filter select{
+    border: transparent;
+    background-color: #EAF9FF;
+    border-radius: 30px;
+}
+
+.form-element--filter select:hover {
+    cursor: pointer;
+}
+
+.employee-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 16px;
+}
+
+.employee-list-header, .employee-list-item  {
+    display: grid;
+    grid-template-columns: 10% 25% 15% 10% 15% 10% 10%;
+    padding: 14px 16px;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.employee-list-header {
+    background-color: #EAF9FF;
+    font-weight: bold;
+}
+
+/* .employee-list-header-status {
+    justify-self: center;
+} */
+
+.employee-list-item {
+    background-color: #FFFFFF;
+    height: fit-content;
+}
+
+/* .employee-list-item .employee-detail-value--status {
+    justify-self: center;
+} */

@@ -11,9 +11,9 @@
 .content-body__form__fields {
     
     display: flex;
-    gap: 30px;
+    gap: 50px;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .form-element--employee-create {

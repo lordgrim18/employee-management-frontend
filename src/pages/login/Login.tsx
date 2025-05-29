@@ -2,8 +2,8 @@ import "./Login.css";
 import LoginInput from "../../components/LoginInput/LoginInput";
 import Button from "../../components/Button/Button";
 
-import loginSideLogo from "../../../public/assets/kv-login.jpeg";
-import KVlogo from "../../../public/assets/kv-logo.png";
+import loginSideLogo from "../../assets/kv-login.jpeg";
+import KVlogo from "../../assets/kv-logo.png";
 import { useEffect, useRef, useState, type SetStateAction } from "react";
 
 import useMousePosition from "../../hooks/useMousePosition";

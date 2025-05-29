@@ -5,20 +5,35 @@ import EmployeeForm from "../../components/EmployeeContent/EmployeeForm/Employee
 import "../../components/EmployeeContent/Header/Header.css"
 import { useNavigate } from "react-router-dom";
 
+const sampleEmployee = {
+    name: "John",
+    joining_date: "2025-01-23",
+    experience: 3,
+    department: "Dept 1",
+    role: "HR",
+    status: "Active",
+    employeeId: "dfuy54g85478d8937",
+    address: {
+        line1: "22nd",
+        line2: "Baker Street",
+        houseNo: "22B",
+        pincode: "987890"
+    }
+}
 
-const CreateEmployee = () => {
+const UpdateEmployee = () => {
     const [values, setValues] = useState({
-        employeeName: "",
-        joiningDate: "",
-        experience: 0,
-        department: "",
-        role: "",
-        status: "",
-        addressLine1: "",
-        addressLine2: "",
-        houseNo: "",
-        pincode: "",
-        employeeId: "",
+        employeeName: sampleEmployee.name,
+        joiningDate: sampleEmployee.joining_date,
+        experience: sampleEmployee.experience,
+        department: sampleEmployee.department,
+        role: sampleEmployee.role,
+        status: sampleEmployee.status,
+        addressLine1: sampleEmployee.address.line1,
+        addressLine2: sampleEmployee.address.line2,
+        houseNo: sampleEmployee.address.houseNo,
+        pincode: sampleEmployee.address.pincode,
+        employeeId: sampleEmployee.employeeId
     });
 
     const navigate = useNavigate();
@@ -27,7 +42,7 @@ const CreateEmployee = () => {
         navigate(-1);
     };
 
-    const createEmployee = (e: React.FormEvent) => {
+    const updateEmployee = (e: React.FormEvent) => {
         console.log(values);
         e.preventDefault();
     }
@@ -35,7 +50,7 @@ const CreateEmployee = () => {
     <div className="content-body">
         <div className="content-body__content">
             <h1 className="content-body__header">
-                  Create Employee 
+                  Edit Employee 
             </h1>
             <form className="content-body__form">
                 <EmployeeForm 
@@ -46,10 +61,10 @@ const CreateEmployee = () => {
                             [field]: value
                         })
                     }
-                    isEdit={false}
+                    isEdit={true}
                 />
                 <div className="content-body__form__submission">
-                    <Button buttonName="Create" variant="create-employee--create" onClick={createEmployee}/>
+                    <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployee}/>
                     <Button buttonName="Cancel" variant="create-employee--close" onClick={handleCancel}/>
                 </div>
             </form>
@@ -58,4 +73,4 @@ const CreateEmployee = () => {
   );
 };
 
-export default CreateEmployee;
+export default UpdateEmployee;

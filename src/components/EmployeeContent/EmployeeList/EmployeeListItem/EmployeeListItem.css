@@ -1,0 +1,6 @@
+.employee-actions button {
+    background-color: transparent;
+    outline: transparent;
+    border: transparent;
+    cursor: pointer;
+}

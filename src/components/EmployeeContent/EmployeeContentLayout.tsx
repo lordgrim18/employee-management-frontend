@@ -1,4 +1,4 @@
-import './EmployeeContentLayout.css';
+import './EmployeeContent.css';
 
 
 const MainContent = ({children}: {children: React.ReactNode}) => {

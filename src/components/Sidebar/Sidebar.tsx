@@ -1,7 +1,7 @@
 import './Sidebar.css'
 
-import KVlogo from "../../../public/assets/kv-logo.png";
-import EmployeeIcon from '../../../public/assets/icon.svg';
+import KVlogo from "../../assets/kv-logo.png";
+import EmployeeIcon from '../../assets/icon.svg'
 
 
 const Sidebar = () => {
