@@ -2,6 +2,7 @@ import './EmployeeListItem.css'
 import deleteIcon from '../../../../assets/icons/delete.svg'
 import editIcon from '../../../../assets/icons/edit.svg'
 import { useNavigate } from 'react-router-dom';
+import type { MouseEventHandler } from 'react';
 
 interface EmployeeListItemProps {
     id: number;
@@ -19,7 +20,7 @@ interface EmployeeListItemProps {
     }
 }
 
-const EmployeeListItem = ({employee}: {employee: EmployeeListItemProps}) => {
+const EmployeeListItem = ({employee, onClick}: {employee: EmployeeListItemProps, onClick: MouseEventHandler<HTMLButtonElement>}) => {
     const navigate = useNavigate()
 
     return (
@@ -31,7 +32,7 @@ const EmployeeListItem = ({employee}: {employee: EmployeeListItemProps}) => {
             <p className={`employee-detail-value--status ${employee.status.toLowerCase()}`}>{employee.status}</p>
             <p>{employee.experience} Years</p>
             <div className='employee-actions'>
-                <button style={{marginRight: "20px"}}><img src={deleteIcon} alt="delete" /></button>
+                <button type="button" style={{marginRight: "20px"}} onClick={onClick}><img src={deleteIcon} alt="delete" /></button>
                 <button><img src={editIcon} alt="edit" onClick={() => navigate(`${employee.id}/update`) }/></button>
             </div>
         </div>

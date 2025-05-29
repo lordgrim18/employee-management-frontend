@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import "./EmployeeList.css"
 import Select from '../../Select/Select';
 import EmployeeListItem from './EmployeeListItem/EmployeeListItem';
+import DeleteConfirmPopup from '../DeleteConfirmPopup/DeleteConfirmPopup';
+import { useState } from 'react';
 
 const sampleEmployeeList = [
     {
@@ -70,6 +72,20 @@ const sampleEmployeeList = [
 ]
 
 const EmployeeList = () => {
+    const [showPopup, setShowPopup] = useState(false);
+    
+    const handleDelete = () => {
+        setShowPopup(true)
+    }
+
+    const handleDeleteConfirm = () => {
+        console.log("deleting");
+        setShowPopup(false);
+    }
+
+    const handleDeleteCancel = () => {
+        setShowPopup((false))
+    }
     return (
         <div className="content-body">
             <div className="content-body__content">
@@ -102,10 +118,12 @@ const EmployeeList = () => {
                         <p>Action</p>
                     </div>
                     {sampleEmployeeList.map((employee, index) => (
-                        <EmployeeListItem key={index} employee={employee} />
+                        <EmployeeListItem key={index} employee={employee} onClick={handleDelete} />
                     ))}
                 </div>
             </div>
+            <DeleteConfirmPopup isOpen={showPopup} onConfirm={handleDeleteConfirm} onCancel={handleDeleteCancel} />
+                    
         </div>
     )
 }
