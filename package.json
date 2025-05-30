@@ -16,7 +16,9 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.1",
+    "redux": "^5.0.1",
     "w3_d1": "file:"
   },
   "devDependencies": {

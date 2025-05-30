@@ -25,10 +25,10 @@ const EmployeeListItem = ({employee, onClick}: {employee: EmployeeListItemProps,
 
     return (
         <div className='employee-list-item'>
-            <Link to={`${employee.id}`} style={{textDecoration: "none"}}>
+            <Link to={`${employee.id}`} style={{textDecoration: "none", color: "#03AEEE"}}>
                 <p>{employee.name}</p>
             </Link>
-            <Link to={`${employee.id}`} style={{textDecoration: "none"}}>
+            <Link to={`${employee.id}`} style={{textDecoration: "none", color: "#03AEEE"}}>
                 <p className='employee-list-item--id'>{employee.employeeId}</p>
             </Link>
             <p>{employee.joining_date}</p>

@@ -65,7 +65,7 @@ const UpdateEmployee = () => {
                 />
                 <div className="content-body__form__submission">
                     <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployee}/>
-                    <Button buttonName="Cancel" variant="create-employee--close" onClick={handleCancel}/>
+                    <Button type="button" buttonName="Cancel" variant="create-employee--close" onClick={handleCancel}/>
                 </div>
             </form>
         </div>

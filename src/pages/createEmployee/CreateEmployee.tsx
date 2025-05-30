@@ -50,7 +50,7 @@ const CreateEmployee = () => {
                 />
                 <div className="content-body__form__submission">
                     <Button buttonName="Create" variant="create-employee--create" onClick={createEmployee}/>
-                    <Button buttonName="Cancel" variant="create-employee--close" onClick={handleCancel}/>
+                    <Button type="button" buttonName="Cancel"  variant="create-employee--close" onClick={handleCancel}/>
                 </div>
             </form>
         </div>

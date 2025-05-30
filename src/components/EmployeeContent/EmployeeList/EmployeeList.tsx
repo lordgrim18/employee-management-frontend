@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link, useSearchParams } from "react-router-dom";
 
 import "./EmployeeList.css";
@@ -7,6 +5,8 @@ import Select from "../../Select/Select";
 import EmployeeListItem from "./EmployeeListItem/EmployeeListItem";
 import DeleteConfirmPopup from "../DeleteConfirmPopup/DeleteConfirmPopup";
 import { useState } from "react";
+import createIcon from '../../../assets/icons/plus.svg'
+import HeaderButton from "../Header/HeaderButton/HeaderButton";
 
 const sampleEmployeeList = [
   {
@@ -75,9 +75,7 @@ const EmployeeList = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const getStatusFilter = () => searchParams.get("status");
-
-  const statusFilter = getStatusFilter();
+  const statusFilter = searchParams.get("status");
 
   const handleDelete = () => {
     setShowPopup(true);
@@ -112,6 +110,7 @@ const EmployeeList = () => {
                 labelName="Filter By:"
                 placeholderItem="Status"
                 items={["Active", "Inactive", "Probation"]}
+                value={statusFilter ? statusFilter : '' }
                 onChange={(e) => {
                   const newStatusFilterParam = new URLSearchParams(
                     searchParams
@@ -123,16 +122,7 @@ const EmployeeList = () => {
                 }}
               />
             </div>
-            <div className="content-body__header__functions-button">
-              <Link to="create" style={{ textDecoration: "none" }}>
-                <button>
-                  <i className="header-button-icon create-icon">
-                    <FontAwesomeIcon icon={faPlus} />
-                  </i>
-                  <div className="header-button-text">Create</div>
-                </button>
-              </Link>
-            </div>
+            <HeaderButton icon={createIcon} name="Create" variant="create-icon" />
           </div>
         </div>
         <div className="employee-list-container">

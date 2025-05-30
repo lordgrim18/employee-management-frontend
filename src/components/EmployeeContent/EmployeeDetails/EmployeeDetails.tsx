@@ -1,12 +1,12 @@
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import editIcon from '../../../assets/icons/pencil.svg'
 
 import "../Header/Header.css";
 import "../EmployeeContent.css";
 import "./EmployeeDetails.css";
 // import { useRef } from "react";
 import EmployeeDetailsItem from "./EmployeeDetailsItem/EmployeeDetailsItem";
+import HeaderButton from "../Header/HeaderButton/HeaderButton";
 
 const sampleEmployee = {
     name: "John",
@@ -52,14 +52,7 @@ const EmployeeDetails = () => {
                         Employee Details 
                     </h1>
                     <div className="content-body__header__functions">
-                        <div className="content-body__header__functions-button">
-                            <Link to="update" style={{textDecoration: "none"}}>
-                                <button>
-                                    <i className="header-button-icon"><FontAwesomeIcon icon={faPen} /></i>
-                                    <div className="header-button-text">Edit</div>
-                                </button>
-                            </Link>
-                        </div>
+                        <HeaderButton icon={editIcon} name="Edit" />
                     </div>
                 </div>
                 <div className="content-body__form">
