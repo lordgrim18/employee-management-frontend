@@ -1,17 +1,17 @@
-.form-element--login-show-password {
+.form-element-checkbox {
     display: flex;
     flex-direction: row;
     position: static;
     gap: 20px;
 }
 
-.form-element--login-show-password input{
+.form-element-checkbox input{
     margin-top: 2.5px;
     margin-left: 10px ;
     height: 20px;
 }
 
-.form-element--login-show-password label {
+.form-element-checkbox label {
     position: static;
 
 }

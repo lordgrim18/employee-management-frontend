@@ -10,7 +10,7 @@ const  Select = ({
   value,
   onChange,
 }: {
-  commonClass: string;
+  commonClass?: string;
   variant: string;
   selectId: string;
   labelName: string;

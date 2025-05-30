@@ -11,6 +11,7 @@ interface LoginInputProps {
   endAdornment?: React.ReactNode;
   checked?: boolean;
   required?: boolean;
+  commonClass?: string;
 }
 
 const LoginInput = ({
@@ -22,11 +23,12 @@ const LoginInput = ({
   ref,
   endAdornment = null,
   checked,
+  commonClass = "form-element",
   required = true
 }: LoginInputProps) => {
   return (
     <div className={`form-element-parent--${id}`} style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-      <div className={`form-element form-element--login form-element--${id}`}>
+      <div className={`${commonClass} form-element--login form-element--${id}`}>
         <input
           type={type}
           id={id}

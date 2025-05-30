@@ -86,7 +86,7 @@ const Login = () => {
         ...prevError,
         error: ""
       }))
-      navigate("/employees/create")
+      navigate("/employees")
     } else {
       setError((prevError) => ({
         ...prevError,
@@ -101,7 +101,7 @@ const Login = () => {
   };
 
   if (isLoggedIn()) {
-    return <Navigate to='/employees/create' />
+    return <Navigate to='/employees' />
   }
 
   return (
@@ -165,6 +165,7 @@ const Login = () => {
                 return !prev
               })}
               checked={showPassword}
+              commonClass="form-element-checkbox"
               required={false}
             />
           </div>

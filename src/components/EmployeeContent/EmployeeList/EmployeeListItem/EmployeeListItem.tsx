@@ -1,7 +1,7 @@
 import './EmployeeListItem.css'
 import deleteIcon from '../../../../assets/icons/delete.svg'
 import editIcon from '../../../../assets/icons/edit.svg'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { MouseEventHandler } from 'react';
 
 interface EmployeeListItemProps {
@@ -25,8 +25,12 @@ const EmployeeListItem = ({employee, onClick}: {employee: EmployeeListItemProps,
 
     return (
         <div className='employee-list-item'>
-            <p>{employee.name}</p>
-            <p className='employee-list-item--id'>{employee.employeeId}</p>
+            <Link to={`${employee.id}`} style={{textDecoration: "none"}}>
+                <p>{employee.name}</p>
+            </Link>
+            <Link to={`${employee.id}`} style={{textDecoration: "none"}}>
+                <p className='employee-list-item--id'>{employee.employeeId}</p>
+            </Link>
             <p>{employee.joining_date}</p>
             <p>{employee.role}</p>
             <p className={`employee-detail-value--status ${employee.status.toLowerCase()}`}>{employee.status}</p>
