@@ -7,12 +7,14 @@ import DeleteConfirmPopup from "../DeleteConfirmPopup/DeleteConfirmPopup";
 import { useState } from "react";
 import createIcon from '../../../assets/icons/plus.svg'
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
+import { useSelector } from "react-redux";
+import type { EmployeeState } from "../../../store/employee/employee.types";
 
 const sampleEmployeeList = [
   {
     id: 1,
     name: "John",
-    joining_date: "2025-01-23",
+    dateOfJoining: "2025-01-23",
     experience: 3,
     role: "HR",
     status: "Active",
@@ -27,7 +29,7 @@ const sampleEmployeeList = [
   {
     id: 2,
     name: "Jane",
-    joining_date: "2025-01-23",
+    dateOfJoining: "2025-01-23",
     experience: 3,
     role: "HR",
     status: "Inactive",
@@ -42,7 +44,7 @@ const sampleEmployeeList = [
   {
     id: 3,
     name: "Mack",
-    joining_date: "2025-01-23",
+    dateOfJoining: "2025-01-23",
     experience: 3,
     role: "HR",
     status: "Active",
@@ -57,7 +59,7 @@ const sampleEmployeeList = [
   {
     id: 4,
     name: "Max",
-    joining_date: "2025-01-23",
+    dateOfJoining: "2025-01-23",
     experience: 3,
     role: "HR",
     status: "Probation",
@@ -76,6 +78,9 @@ const EmployeeList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const statusFilter = searchParams.get("status");
+  
+    const employees = useSelector((state: EmployeeState) => state.employees)
+    const employeesList = employees.length !== 0 ? employees : sampleEmployeeList
 
   const handleDelete = () => {
     setShowPopup(true);
@@ -89,6 +94,7 @@ const EmployeeList = () => {
   const handleDeleteCancel = () => {
     setShowPopup(false);
   };
+
   return (
     <div className="content-body">
       <div className="content-body__content">
@@ -122,7 +128,7 @@ const EmployeeList = () => {
                 }}
               />
             </div>
-            <HeaderButton icon={createIcon} name="Create" variant="create-icon" />
+            <HeaderButton icon={createIcon} name="Create" variant="create-icon" linkTo="create"/>
           </div>
         </div>
         <div className="employee-list-container">
@@ -136,10 +142,10 @@ const EmployeeList = () => {
             <p>Action</p>
           </div>
           {(statusFilter
-            ? sampleEmployeeList.filter(
+            ? employeesList.filter(
                 (sampleEmployee) => sampleEmployee.status === statusFilter
               )
-            : sampleEmployeeList
+            : employeesList
           ).map((employee, index) => (
             <EmployeeListItem
               key={index}

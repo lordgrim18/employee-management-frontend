@@ -11,8 +11,8 @@ const EmployeeForm = ({
   isEdit,
 }: {
   values: {
-    employeeName: string;
-    joiningDate: string;
+    name: string;
+    DateOfJoining: string;
     experience: number;
     department: string;
     role: string;
@@ -34,17 +34,17 @@ const EmployeeForm = ({
               labelName="Employee Name"
               variant="employee-create"
               inputPlaceholder="Employee Name"
-              value={values.employeeName}
-              onChange={(e) => onChange("employeeName", e.target.value)}
+              value={values.name}
+              onChange={(e) => onChange("name", e.target.value)}
             />
             <Input
               inputId="employee-joining-date"
-              inputType="text"
+              inputType="date"
               labelName="Joining Date"
               variant="employee-create"
               inputPlaceholder="Joining Date (yyyy-mm-dd)"
-              value={values.joiningDate}
-              onChange={(e) => onChange("joiningDate", e.target.value)}
+              value={values.DateOfJoining}
+              onChange={(e) => onChange("DateOfJoining", e.target.value)}
             />
             <Input
               inputId="employee-experience"
@@ -70,13 +70,17 @@ const EmployeeForm = ({
               variant="employee-create"
               placeholderItem="Choose Role"
               items={["HR", "DEVELOPER", "UI", "UX"]}
+              value={values.role}
+              onChange={(e) => onChange("role", e.target.value)}
             />
             <Select
               selectId="employee-status"
               labelName="Status"
               variant="employee-create"
               placeholderItem="Status"
-              items={["ACTIVE, INACTIVE, PROBATION"]}
+              items={["ACTIVE", "INACTIVE", "PROBATION"]}
+              value={values.status}
+              onChange={(e) => onChange("status", e.target.value)}
             />
             <MultiInput
               variant="employee-create"

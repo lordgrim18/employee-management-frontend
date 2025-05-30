@@ -7,7 +7,7 @@ import type { MouseEventHandler } from 'react';
 interface EmployeeListItemProps {
     id: number;
     name: string;
-    joining_date: string;
+    dateOfJoining: string;
     experience: number;
     role: string;
     status: string;
@@ -31,7 +31,7 @@ const EmployeeListItem = ({employee, onClick}: {employee: EmployeeListItemProps,
             <Link to={`${employee.id}`} style={{textDecoration: "none", color: "#03AEEE"}}>
                 <p className='employee-list-item--id'>{employee.employeeId}</p>
             </Link>
-            <p>{employee.joining_date}</p>
+            <p>{employee.dateOfJoining}</p>
             <p>{employee.role}</p>
             <p className={`employee-detail-value--status ${employee.status.toLowerCase()}`}>{employee.status}</p>
             <p>{employee.experience} Years</p>

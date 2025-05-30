@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const sampleEmployee = {
     name: "John",
-    joining_date: "2025-01-23",
+    dateOfJoining: "2025-01-23",
     experience: 3,
     department: "Dept 1",
     role: "HR",
@@ -23,8 +23,8 @@ const sampleEmployee = {
 
 const UpdateEmployee = () => {
     const [values, setValues] = useState({
-        employeeName: sampleEmployee.name,
-        joiningDate: sampleEmployee.joining_date,
+        name: sampleEmployee.name,
+        DateOfJoining: sampleEmployee.dateOfJoining,
         experience: sampleEmployee.experience,
         department: sampleEmployee.department,
         role: sampleEmployee.role,

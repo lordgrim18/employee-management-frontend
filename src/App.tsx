@@ -10,6 +10,9 @@ import EmployeeList from './components/EmployeeContent/EmployeeList/EmployeeList
 import CreateEmployee from './pages/createEmployee/CreateEmployee'
 import UpdateEmployee from './pages/updateEmployee/updateEmployee'
 
+import { Provider } from 'react-redux'
+import store from './store/store'
+
 
 const router = createBrowserRouter([
   {
@@ -40,7 +43,9 @@ function App() {
 
   return (
     <div className='App'>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </div>
   )
 }

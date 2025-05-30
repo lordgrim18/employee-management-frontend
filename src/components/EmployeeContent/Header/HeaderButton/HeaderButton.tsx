@@ -6,12 +6,13 @@ interface HeaderButtonProps {
     icon: string;
     name: string;
     variant?: string;
+    linkTo: string
 }
 
-const HeaderButton = ({icon, name, variant}: HeaderButtonProps) => {
+const HeaderButton = ({icon, name, variant, linkTo}: HeaderButtonProps) => {
     return (
         <div className={`content-body__header__functions-button`} >
-            <Link to="update" style={{textDecoration: "none"}}>
+            <Link to={`${linkTo}`} style={{textDecoration: "none"}}>
                 <button>
                     <i className={`header-button-icon ${variant}`}>
                         <img src={icon} />

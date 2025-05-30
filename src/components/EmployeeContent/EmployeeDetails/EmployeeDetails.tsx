@@ -10,7 +10,7 @@ import HeaderButton from "../Header/HeaderButton/HeaderButton";
 
 const sampleEmployee = {
     name: "John",
-    joining_date: "2025-01-23",
+    dateOfJoining: "2025-01-23",
     experience: 3,
     role: "HR",
     status: "Active",
@@ -52,7 +52,7 @@ const EmployeeDetails = () => {
                         Employee Details 
                     </h1>
                     <div className="content-body__header__functions">
-                        <HeaderButton icon={editIcon} name="Edit" />
+                        <HeaderButton icon={editIcon} name="Edit" linkTo="update"/>
                     </div>
                 </div>
                 <div className="content-body__form">
@@ -60,7 +60,7 @@ const EmployeeDetails = () => {
                         <div className="employee-details-wrapper">
                             <div className="employee-details--container">
                                 <EmployeeDetailsItem label="Employee Name"  value={sampleEmployee.name} />
-                                <EmployeeDetailsItem label="Joining Date"  value={sampleEmployee.joining_date} />
+                                <EmployeeDetailsItem label="Joining Date"  value={sampleEmployee.dateOfJoining} />
                                 <EmployeeDetailsItem label="Experience"  value={String(sampleEmployee.experience)} />
                                 <EmployeeDetailsItem label="Role"  value={sampleEmployee.role} />
                             </div>
