@@ -13,7 +13,7 @@ const EmployeeForm = ({
 }: {
   values: {
     name: string;
-    DateOfJoining: string;
+    dateOfJoining: string;
     experience: number;
     departmentId: number;
     role: string;
@@ -47,8 +47,8 @@ const EmployeeForm = ({
         labelName="Joining Date"
         variant="employee-create"
         inputPlaceholder="Joining Date (yyyy-mm-dd)"
-        value={values.DateOfJoining}
-        onChange={(e) => onChange("DateOfJoining", e.target.value)}
+        value={values.dateOfJoining}
+        onChange={(e) => onChange("dateOfJoining", e.target.value)}
       />
       <Input
         inputId="employee-experience"

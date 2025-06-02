@@ -16,7 +16,7 @@ const EmployeeList = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [deleteId, setDeleteId] = useState(Number());
-  const employeesList = useGetEmployeeListQuery({});
+  const { data: employeesList, isLoading: isEmployeesLoading, error: employeesError } = useGetEmployeeListQuery({});
   const [deleteEmployee, {isLoading: isEmployeeDeleting}] = useDeleteEmployeeMutation();
 
   const statusFilter = searchParams.get("status");
@@ -42,6 +42,13 @@ const EmployeeList = () => {
   const handleDeleteCancel = () => {
     setShowPopup(false);
   };
+
+  const filteredEmployees = employeesList
+    ? (statusFilter
+        ? employeesList.filter((singleEmployee: Employee) => singleEmployee.status === statusFilter.toUpperCase())
+        : employeesList
+      )
+    : [];
 
   return (
     <div className="content-body">
@@ -89,18 +96,25 @@ const EmployeeList = () => {
             <p>Experience</p>
             <p>Action</p>
           </div>
-          {employeesList.data? (statusFilter
-            ? employeesList.data.filter(
-                (singleEmployee: Employee) => singleEmployee.status === statusFilter
-              )
-            : employeesList.data
-          ).map((employee: Employee, index: number) => (
-            <EmployeeListItem
-              key={index}
-              employee={employee}
-              onClick={() => handleDelete({id: employee.id})}
-            />
-          )) : [] }
+          {isEmployeesLoading ? (
+              <p style={{color: "green"}}>Loading employees...</p>
+          ) : employeesError ? (
+            <div style={{color: "red"}}>
+              <p>Error loading employees. Please try again later.</p>
+            </div>
+          ) : filteredEmployees.length > 0 ? (
+            filteredEmployees.map((employee: Employee, index: number) => (
+              <EmployeeListItem
+                key={employee.id || index}
+                employee={employee}
+                onClick={() => handleDelete({id: employee.id})}
+              />
+            ))
+          ) : (
+            <div style={{textAlign: "center"}}>
+              No employees found.
+            </div>
+          )}
         </div>
       </div>
       <DeleteConfirmPopup

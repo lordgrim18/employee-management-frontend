@@ -17,7 +17,7 @@ import { useCreateEmployeeMutation } from "../../api-service/employees/employees
 const CreateEmployee = () => {
   const [values, setValues] = useState({
     name: "",
-    DateOfJoining: "",
+    dateOfJoining: "",
     experience: "" as unknown as number,
     departmentId: "" as unknown as number,
     role: "" as Role,
@@ -36,10 +36,6 @@ const CreateEmployee = () => {
 
   const navigate = useNavigate();
 
-  const employees = useAppSelector((state) => state.employee.employees);
-  // const dispatch = useDispatch();
-  const dispatch = useAppDispatch();
-
   const handleCancel = () => {
     navigate(-1);
   };
@@ -48,7 +44,7 @@ const CreateEmployee = () => {
     e.preventDefault();
     createEmployee({
             name: values.name,
-            dateOfJoining: values.DateOfJoining,
+            dateOfJoining: values.dateOfJoining,
             experience: Number(values.experience),
             role: values.role,
             status: values.status,
@@ -92,12 +88,14 @@ const CreateEmployee = () => {
               buttonName="Create"
               variant="create-employee--create"
               onClick={createEmployeeClick}
+              disabled={isLoading}
             />
             <Button
               type="button"
               buttonName="Cancel"
               variant="create-employee--close"
               onClick={handleCancel}
+              disabled={isLoading}
             />
           </div>
         </form>

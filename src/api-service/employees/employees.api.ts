@@ -1,3 +1,4 @@
+import { updateEmployee } from "../../store/employee/employeeReducer";
 import baseApi from "../api";
 
 export const employeeApi = baseApi.injectEndpoints({
@@ -25,7 +26,15 @@ export const employeeApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['EMPLOYEES', 'EMPLOYEE_DETAILS']
         }),
+        updateEmployee: builder.mutation({
+            query: (payload) => ({
+                url: `/employee/${payload.id}`,
+                method: "PUT",
+                body: payload
+            }),
+            invalidatesTags: ['EMPLOYEES', 'EMPLOYEE_DETAILS']
+        }),
     })
 });
 
-export const { useGetEmployeeListQuery, useGetSingleEmployeeQuery, useDeleteEmployeeMutation, useCreateEmployeeMutation  } = employeeApi;
+export const { useGetEmployeeListQuery, useGetSingleEmployeeQuery, useDeleteEmployeeMutation, useCreateEmployeeMutation, useUpdateEmployeeMutation  } = employeeApi;

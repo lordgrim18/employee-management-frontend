@@ -56,9 +56,15 @@ export const employeeSlice = createSlice({
       state.employees.push(action.payload);
     },
     updateEmployee: (state, action: PayloadAction<Employee>) => {
-      console.log(action.payload)
-      console.log(state.employees)
-      state.employees.map(employee => employee.id == action.payload.id ? action.payload : employee)
+      const index = state.employees.findIndex(
+        (employee) => employee.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.employees[index] = action.payload;
+        console.log("Employee updated successfully:", state.employees[index]);
+      } else {
+        console.log("Employee not found for update with ID:", action.payload.id);
+      }
     }
   },
 });
