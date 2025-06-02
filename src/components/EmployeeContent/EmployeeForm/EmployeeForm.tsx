@@ -22,6 +22,9 @@ const EmployeeForm = ({
     houseNo: string;
     pincode: string;
     employeeId: string;
+    email: string;
+    password: string;
+    age: number;
   };
   onChange: (field: string, value: string) => void;
   isEdit: boolean;
@@ -82,15 +85,34 @@ const EmployeeForm = ({
               value={values.status}
               onChange={(e) => onChange("status", e.target.value)}
             />
-            <MultiInput
+            <Input
+              inputId="employee-email"
+              inputType="text"
+              labelName="Email"
               variant="employee-create"
-              labelName="Address"
-              inputs={[
-                { id: "houseNo", placeholder: "Flat No. / House No.", value: values.houseNo, onChange: (e) => onChange("houseNo", e.target.value) },
-                { id: "line1", placeholder: "Address Line 1", value: values.addressLine1, onChange:(e) => onChange("addressLine1", e.target.value) },
-                { id: "line2", placeholder: "Address Line 2", value: values.addressLine2, onChange:(e) => onChange("addressLine2", e.target.value) },
-                { id: "pincode", placeholder: "Pincode", value: values.pincode, onChange:(e) => onChange("pincode", e.target.value) },
-              ]}
+              inputPlaceholder="user@email.com"
+              value={values.email}
+              onChange={(e) => onChange("email", e.target.value)}
+            />
+            {!isEdit && 
+                        <Input
+                          inputId="employee-password"
+                          inputType="password"
+                          labelName="Password"
+                          variant="employee-create"
+                          inputPlaceholder="password"
+                          value={values.password}
+                          onChange={(e) => onChange("password", e.target.value)}
+                        /> 
+            }
+            <Input
+              inputId="employee-age"
+              inputType="number"
+              labelName="Age (Yrs)"
+              variant="employee-create"
+              inputPlaceholder="26"
+              value={values.age}
+              onChange={(e) => onChange("age", e.target.value)}
             />
             {isEdit && <Input
                           inputId="employee-id"
@@ -102,6 +124,16 @@ const EmployeeForm = ({
                           disabled={true}
                         />
               }
+            <MultiInput
+              variant="employee-create"
+              labelName="Address"
+              inputs={[
+                { id: "houseNo", placeholder: "Flat No. / House No.", value: values.houseNo, onChange: (e) => onChange("houseNo", e.target.value) },
+                { id: "line1", placeholder: "Address Line 1", value: values.addressLine1, onChange:(e) => onChange("addressLine1", e.target.value) },
+                { id: "line2", placeholder: "Address Line 2", value: values.addressLine2, onChange:(e) => onChange("addressLine2", e.target.value) },
+                { id: "pincode", placeholder: "Pincode", value: values.pincode, onChange:(e) => onChange("pincode", e.target.value) },
+              ]}
+            />
           </div>
   );
 };

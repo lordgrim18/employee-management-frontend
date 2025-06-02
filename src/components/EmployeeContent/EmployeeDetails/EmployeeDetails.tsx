@@ -7,6 +7,8 @@ import "./EmployeeDetails.css";
 // import { useRef } from "react";
 import EmployeeDetailsItem from "./EmployeeDetailsItem/EmployeeDetailsItem";
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
+import { useSelector } from "react-redux";
+import type { EmployeeState } from "../../../store/employee/employee.types";
 
 const sampleEmployee = {
     name: "John",
@@ -25,6 +27,27 @@ const sampleEmployee = {
 
 const EmployeeDetails = () => {
     const {id} = useParams();
+    const employees = useSelector((state: EmployeeState) => state.employees)
+    let validEmployee : {
+        name: string;
+        dateOfJoining: string;
+        experience: number;
+        role: string;
+        status: string;
+        employeeId: string;
+        address: {
+            line1: string;
+            line2: string;
+            houseNo: string;
+            pincode: string;
+        }
+    };
+    if (employees.length !== 0) {
+        validEmployee = employees.filter((employee) => String(employee.id) === (id) )[0]
+    } else {
+        validEmployee = sampleEmployee;
+    }
+
     // const [searchParams, setSearchParams] = useSearchParams();
 
     // const inputRef = useRef<HTMLInputElement>(null);
@@ -59,16 +82,16 @@ const EmployeeDetails = () => {
                     <div>
                         <div className="employee-details-wrapper">
                             <div className="employee-details--container">
-                                <EmployeeDetailsItem label="Employee Name"  value={sampleEmployee.name} />
-                                <EmployeeDetailsItem label="Joining Date"  value={sampleEmployee.dateOfJoining} />
-                                <EmployeeDetailsItem label="Experience"  value={String(sampleEmployee.experience)} />
-                                <EmployeeDetailsItem label="Role"  value={sampleEmployee.role} />
+                                <EmployeeDetailsItem label="Employee Name"  value={validEmployee.name} />
+                                <EmployeeDetailsItem label="Joining Date"  value={validEmployee.dateOfJoining} />
+                                <EmployeeDetailsItem label="Experience"  value={String(validEmployee.experience)} />
+                                <EmployeeDetailsItem label="Role"  value={validEmployee.role} />
                             </div>
                             <hr />
                             <div className="employee-details--container">
-                                <EmployeeDetailsItem label="Status" variant={`status ${sampleEmployee.status.toLowerCase()}`} value={sampleEmployee.status} />
-                                <EmployeeDetailsItem label="Address"  values={sampleEmployee.address} />
-                                <EmployeeDetailsItem label="Employee ID"  value={sampleEmployee.employeeId} />
+                                <EmployeeDetailsItem label="Status" variant={`status ${validEmployee.status.toLowerCase()}`} value={validEmployee.status} />
+                                <EmployeeDetailsItem label="Address"  values={validEmployee.address} />
+                                <EmployeeDetailsItem label="Employee ID"  value={validEmployee.employeeId} />
                                 <EmployeeDetailsItem label="" value="" />
                             </div>
 

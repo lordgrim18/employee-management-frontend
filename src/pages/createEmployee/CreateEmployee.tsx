@@ -9,55 +9,78 @@ import {
   EMPLOYEE_ACTION_TYPES,
   type EmployeeState,
 } from "../../store/employee/employee.types";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { addEmployee } from "../../store/employee/employeeReducer";
+import type { Role, Status } from "../../store/employee/employee.types";
 
 const CreateEmployee = () => {
   const [values, setValues] = useState({
     name: "",
     DateOfJoining: "",
-    experience: 0,
+    experience: "" as unknown as number,
     department: "",
-    role: "",
-    status: "",
+    role: "" as Role,
+    status: "" as Status,
     addressLine1: "",
     addressLine2: "",
     houseNo: "",
     pincode: "",
     employeeId: "",
+    email: "",
+    password: "",
+    age: "" as unknown as number,
   });
 
   const navigate = useNavigate();
 
-  const employees = useSelector((state: EmployeeState) => state.employees);
-  // console.log(employees)
-  const dispatch = useDispatch();
+  const employees = useAppSelector((state) => state.employee.employees);
+  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleCancel = () => {
     navigate(-1);
   };
 
-  console.log(values);
-
   const createEmployee = (e: React.FormEvent) => {
-    // console.log(values);
     e.preventDefault();
-    dispatch({ 
-        type: EMPLOYEE_ACTION_TYPES.ADD, 
-        payload: {
+    // dispatch({ 
+    //     type: EMPLOYEE_ACTION_TYPES.ADD, 
+    //     payload: {
+    //         id: employees.length + 1,
+    //         name: values.name,
+    //         dateOfJoining: values.DateOfJoining,
+    //         experience: values.experience,
+    //         role: values.role,
+    //         status: values.status,
+    //         employeeId: crypto.randomUUID(),
+    //         address: {
+    //             line1: values.addressLine1,
+    //             line2: values.addressLine2,
+    //             houseNo: values.houseNo,
+    //             pincode: values.pincode
+    //         }
+    //     } 
+    // });
+
+    dispatch( addEmployee({
             id: employees.length + 1,
             name: values.name,
             dateOfJoining: values.DateOfJoining,
-            experience: values.experience,
+            experience: Number(values.experience),
             role: values.role,
             status: values.status,
             employeeId: crypto.randomUUID(),
+            email: values.email,
+            password: values.password,
+            age: Number(values.age),
             address: {
                 line1: values.addressLine1,
                 line2: values.addressLine2,
                 houseNo: values.houseNo,
                 pincode: values.pincode
             }
-        } 
-    });
+    })
+  )
     navigate("/employees");
   };
 

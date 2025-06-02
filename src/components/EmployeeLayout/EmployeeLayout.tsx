@@ -4,9 +4,8 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const EmployeeLayout = () => {
   const isLoggedIn = () => {
-    const token = localStorage.getItem("isLoggedIn");
-    console.log(token, token === "true");
-    return token === "true";
+    const token = localStorage.getItem("token");
+    return token ? true : false 
   };
 
   if (!isLoggedIn()) {

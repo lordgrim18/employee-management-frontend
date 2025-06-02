@@ -72,7 +72,7 @@ export interface Employee {
 
   name: string;
 
-//   age: number;
+  age: number;
 
   address: Address;
 
@@ -86,7 +86,7 @@ export interface Employee {
 
   status: Status;
 
-  departmentId: number | string;
+  // departmentId: number | string;
 
 }
 

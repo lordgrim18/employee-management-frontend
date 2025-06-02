@@ -2,19 +2,20 @@ import './Sidebar.css'
 
 import KVlogo from "../../assets/kv-logo.png";
 import EmployeeIcon from '../../assets/icon.svg'
+import { Link } from 'react-router-dom';
 
 
 const Sidebar = () => {
     return (
         <div className="sidebar">
-            <a href="/" className="logo">
+            <Link to="/employees" style={{textDecoration: "none"}} className='logo'>
                 <img src={KVlogo} alt="kv-logo" className="logo-img" />
-            </a>
+            </Link>
             <div className="sidebar-items">
-                <a href="/" className="sidebar-item-selected">
+                <Link to="/employees" style={{textDecoration: "none"}} className="sidebar-item-selected" >
                     <img src={EmployeeIcon} alt="employees icon" />
                     <p>Employee List</p>
-                </a>
+                </Link>
             </div>
         </div>
     )

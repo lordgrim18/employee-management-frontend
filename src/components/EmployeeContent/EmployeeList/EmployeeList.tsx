@@ -9,6 +9,7 @@ import createIcon from '../../../assets/icons/plus.svg'
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
 import { useSelector } from "react-redux";
 import type { EmployeeState } from "../../../store/employee/employee.types";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 
 const sampleEmployeeList = [
   {
@@ -79,7 +80,9 @@ const EmployeeList = () => {
 
   const statusFilter = searchParams.get("status");
   
-    const employees = useSelector((state: EmployeeState) => state.employees)
+    // const employees = useSelector((state: EmployeeState) => state.employees)
+    const employees = useAppSelector(state => state.employee.employees )
+    console.log(employees)
     const employeesList = employees.length !== 0 ? employees : sampleEmployeeList
 
   const handleDelete = () => {

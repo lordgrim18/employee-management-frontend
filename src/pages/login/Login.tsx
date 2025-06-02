@@ -8,6 +8,7 @@ import { useEffect, useRef, useState, type SetStateAction } from "react";
 
 import useMousePosition from "../../hooks/useMousePosition";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../api-service/auth/login.api";
 
 const sampleUser = {
   username: "John",
@@ -15,6 +16,7 @@ const sampleUser = {
 }
 
 const Login = () => {
+  const [login] = useLoginMutation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(localStorage.getItem("showPassword") === "true");
@@ -79,25 +81,31 @@ const Login = () => {
     }
   }, []);
 
-  const loginUser = () => {
-    if (username === sampleUser.username && password === sampleUser.password) {
-      localStorage.setItem("isLoggedIn", "true");
-      setError((prevError) => ({
-        ...prevError,
-        error: ""
-      }))
-      navigate("/employees")
-    } else {
-      setError((prevError) => ({
-        ...prevError,
-        error: "Incorrect username or password"
-      }))
-    }
+  // const loginUser = () => {
+  //   if (username === sampleUser.username && password === sampleUser.password) {
+  //     localStorage.setItem("isLoggedIn", "true");
+  //     setError((prevError) => ({
+  //       ...prevError,
+  //       error: ""
+  //     }))
+  //     navigate("/employees")
+  //   } else {
+  //     setError((prevError) => ({
+  //       ...prevError,
+  //       error: "Incorrect username or password"
+  //     }))
+  //   }
+  // }
+
+  const loginUser = async () => {
+    const response = await login({ email: username, password: password });
+    localStorage.setItem("token", response.data ? response.data.accessToken : '');
+    navigate('/employees')
   }
 
   const isLoggedIn = () => {
-    const token = localStorage.getItem("isLoggedIn");
-    return token === "true";
+    const token = localStorage.getItem("token");
+    return token ? true : false 
   };
 
   if (isLoggedIn()) {
