@@ -1,9 +1,10 @@
 import "./EmployeeForm.css";
-import "../EmployeeContent.css"
+import "../EmployeeContent.css";
 
 import Input from "../../Input/Input";
 import Select from "../../Select/Select";
 import MultiInput from "../../MultiInput/MultiInput";
+import VariableSelect from "../../VariableSelect/VariableSelect";
 
 const EmployeeForm = ({
   values,
@@ -14,7 +15,7 @@ const EmployeeForm = ({
     name: string;
     DateOfJoining: string;
     experience: number;
-    department: string;
+    departmentId: number;
     role: string;
     status: string;
     addressLine1: string;
@@ -30,111 +31,136 @@ const EmployeeForm = ({
   isEdit: boolean;
 }) => {
   return (
-          <div className="content-body__form__fields">
-            <Input
-              inputId="employee-name"
-              inputType="text"
-              labelName="Employee Name"
-              variant="employee-create"
-              inputPlaceholder="Employee Name"
-              value={values.name}
-              onChange={(e) => onChange("name", e.target.value)}
-            />
-            <Input
-              inputId="employee-joining-date"
-              inputType="date"
-              labelName="Joining Date"
-              variant="employee-create"
-              inputPlaceholder="Joining Date (yyyy-mm-dd)"
-              value={values.DateOfJoining}
-              onChange={(e) => onChange("DateOfJoining", e.target.value)}
-            />
-            <Input
-              inputId="employee-experience"
-              inputType="number"
-              labelName="Experience (Yrs)"
-              variant="employee-create"
-              inputPlaceholder="2"
-              value={values.experience}
-              onChange={(e) => onChange("experience", e.target.value)}
-            />
-            <Select
-              selectId="employee-department"
-              labelName="Department"
-              variant="employee-create"
-              placeholderItem="Choose Department"
-              items={["Dept 1", "Dept2", "Dept3"]}
-              value={values.department}
-              onChange={(e) => onChange("department", e.target.value)}
-            />
-            <Select
-              selectId="employee-role"
-              labelName="Role"
-              variant="employee-create"
-              placeholderItem="Choose Role"
-              items={["HR", "DEVELOPER", "UI", "UX"]}
-              value={values.role}
-              onChange={(e) => onChange("role", e.target.value)}
-            />
-            <Select
-              selectId="employee-status"
-              labelName="Status"
-              variant="employee-create"
-              placeholderItem="Status"
-              items={["ACTIVE", "INACTIVE", "PROBATION"]}
-              value={values.status}
-              onChange={(e) => onChange("status", e.target.value)}
-            />
-            <Input
-              inputId="employee-email"
-              inputType="text"
-              labelName="Email"
-              variant="employee-create"
-              inputPlaceholder="user@email.com"
-              value={values.email}
-              onChange={(e) => onChange("email", e.target.value)}
-            />
-            {!isEdit && 
-                        <Input
-                          inputId="employee-password"
-                          inputType="password"
-                          labelName="Password"
-                          variant="employee-create"
-                          inputPlaceholder="password"
-                          value={values.password}
-                          onChange={(e) => onChange("password", e.target.value)}
-                        /> 
-            }
-            <Input
-              inputId="employee-age"
-              inputType="number"
-              labelName="Age (Yrs)"
-              variant="employee-create"
-              inputPlaceholder="26"
-              value={values.age}
-              onChange={(e) => onChange("age", e.target.value)}
-            />
-            {isEdit && <Input
-                          inputId="employee-id"
-                          inputType="text"
-                          labelName="Employee ID"
-                          variant="employee-create"
-                          inputPlaceholder=""
-                          value={values.employeeId}
-                          disabled={true}
-                        />
-              }
-            <MultiInput
-              variant="employee-create"
-              labelName="Address"
-              inputs={[
-                { id: "houseNo", placeholder: "Flat No. / House No.", value: values.houseNo, onChange: (e) => onChange("houseNo", e.target.value) },
-                { id: "line1", placeholder: "Address Line 1", value: values.addressLine1, onChange:(e) => onChange("addressLine1", e.target.value) },
-                { id: "line2", placeholder: "Address Line 2", value: values.addressLine2, onChange:(e) => onChange("addressLine2", e.target.value) },
-                { id: "pincode", placeholder: "Pincode", value: values.pincode, onChange:(e) => onChange("pincode", e.target.value) },
-              ]}
-            />
-          </div>
+    <div className="content-body__form__fields">
+      <Input
+        inputId="employee-name"
+        inputType="text"
+        labelName="Employee Name"
+        variant="employee-create"
+        inputPlaceholder="Employee Name"
+        value={values.name}
+        onChange={(e) => onChange("name", e.target.value)}
+      />
+      <Input
+        inputId="employee-joining-date"
+        inputType="date"
+        labelName="Joining Date"
+        variant="employee-create"
+        inputPlaceholder="Joining Date (yyyy-mm-dd)"
+        value={values.DateOfJoining}
+        onChange={(e) => onChange("DateOfJoining", e.target.value)}
+      />
+      <Input
+        inputId="employee-experience"
+        inputType="number"
+        labelName="Experience (Yrs)"
+        variant="employee-create"
+        inputPlaceholder="2"
+        value={values.experience}
+        onChange={(e) => onChange("experience", e.target.value)}
+      />
+      <VariableSelect
+        selectId="employee-department"
+        labelName="Department"
+        variant="employee-create"
+        placeholderItem="Choose Department"
+        items={[
+          { id: 1, name: "dept 1" },
+          { id: 2, name: "Backend" },
+          { id: 6, name: "Test" },
+        ]}
+        value={values.departmentId}
+        onChange={(e) => onChange("departmentId", e.target.value)}
+      />
+      <Select
+        selectId="employee-role"
+        labelName="Role"
+        variant="employee-create"
+        placeholderItem="Choose Role"
+        items={["HR", "DEVELOPER", "UI", "UX"]}
+        value={values.role}
+        onChange={(e) => onChange("role", e.target.value)}
+      />
+      <Select
+        selectId="employee-status"
+        labelName="Status"
+        variant="employee-create"
+        placeholderItem="Status"
+        items={["ACTIVE", "INACTIVE", "PROBATION"]}
+        value={values.status}
+        onChange={(e) => onChange("status", e.target.value)}
+      />
+      <Input
+        inputId="employee-email"
+        inputType="text"
+        labelName="Email"
+        variant="employee-create"
+        inputPlaceholder="user@email.com"
+        value={values.email}
+        onChange={(e) => onChange("email", e.target.value)}
+      />
+      {!isEdit && (
+        <Input
+          inputId="employee-password"
+          inputType="password"
+          labelName="Password"
+          variant="employee-create"
+          inputPlaceholder="password"
+          value={values.password}
+          onChange={(e) => onChange("password", e.target.value)}
+        />
+      )}
+      <Input
+        inputId="employee-age"
+        inputType="number"
+        labelName="Age (Yrs)"
+        variant="employee-create"
+        inputPlaceholder="26"
+        value={values.age}
+        onChange={(e) => onChange("age", e.target.value)}
+      />
+      {isEdit && (
+        <Input
+          inputId="employee-id"
+          inputType="text"
+          labelName="Employee ID"
+          variant="employee-create"
+          inputPlaceholder=""
+          value={values.employeeId}
+          disabled={true}
+        />
+      )}
+      <MultiInput
+        variant="employee-create"
+        labelName="Address"
+        inputs={[
+          {
+            id: "houseNo",
+            placeholder: "Flat No. / House No.",
+            value: values.houseNo,
+            onChange: (e) => onChange("houseNo", e.target.value),
+          },
+          {
+            id: "line1",
+            placeholder: "Address Line 1",
+            value: values.addressLine1,
+            onChange: (e) => onChange("addressLine1", e.target.value),
+          },
+          {
+            id: "line2",
+            placeholder: "Address Line 2",
+            value: values.addressLine2,
+            onChange: (e) => onChange("addressLine2", e.target.value),
+          },
+          {
+            id: "pincode",
+            placeholder: "Pincode",
+            value: values.pincode,
+            onChange: (e) => onChange("pincode", e.target.value),
+          },
+        ]}
+      />
+    </div>
   );
 };
 

@@ -56,11 +56,9 @@ export const employeeSlice = createSlice({
       state.employees.push(action.payload);
     },
     updateEmployee: (state, action: PayloadAction<Employee>) => {
-      state.employees.filter((employee) => {
-        return employee.id !== action.payload.id
-            ? employee
-            : action.payload;
-      })
+      console.log(action.payload)
+      console.log(state.employees)
+      state.employees.map(employee => employee.id == action.payload.id ? action.payload : employee)
     }
   },
 });

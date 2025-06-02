@@ -3,7 +3,9 @@ import Button from "../../components/Button/Button";
 import EmployeeForm from "../../components/EmployeeContent/EmployeeForm/EmployeeForm";
 
 import "../../components/EmployeeContent/Header/Header.css"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { updateEmployee } from "../../store/employee/employeeReducer";
 
 const sampleEmployee = {
     name: "John",
@@ -22,18 +24,28 @@ const sampleEmployee = {
 }
 
 const UpdateEmployee = () => {
+    const {id} = useParams();
+    const dispatch = useAppDispatch();
+    
+    const employees = useAppSelector(state => state.employee.employees )
+    let employee = employees.filter((singleEmployee) => singleEmployee.id == id )[0]
     const [values, setValues] = useState({
-        name: sampleEmployee.name,
-        DateOfJoining: sampleEmployee.dateOfJoining,
-        experience: sampleEmployee.experience,
-        department: sampleEmployee.department,
-        role: sampleEmployee.role,
-        status: sampleEmployee.status,
-        addressLine1: sampleEmployee.address.line1,
-        addressLine2: sampleEmployee.address.line2,
-        houseNo: sampleEmployee.address.houseNo,
-        pincode: sampleEmployee.address.pincode,
-        employeeId: sampleEmployee.employeeId
+        id: employee.id,
+        name: employee.name,
+        DateOfJoining: employee.dateOfJoining,
+        experience: employee.experience,
+        department: employee.department,
+        role: employee.role,
+        status: employee.status,
+        departmentId: employee.departmentId,
+        addressLine1: employee.address.line1,
+        addressLine2: employee.address.line2,
+        houseNo: employee.address.houseNo,
+        pincode: employee.address.pincode,
+        employeeId: employee.employeeId,
+        email: employee.email,
+        password: '',
+        age: employee.age,
     });
 
     const navigate = useNavigate();
@@ -42,8 +54,28 @@ const UpdateEmployee = () => {
         navigate(-1);
     };
 
-    const updateEmployee = (e: React.FormEvent) => {
-        console.log(values);
+    const updateEmployeeClick = (e: React.FormEvent) => {
+        dispatch( updateEmployee({
+                    id: employee.id,
+                    name: values.name,
+                    dateOfJoining: values.DateOfJoining,
+                    experience: Number(values.experience),
+                    role: values.role,
+                    status: values.status,
+                    employeeId: employee.id,
+                    departmentId: values.departmentId,
+                    email: values.email,
+                    password: employee.password,
+                    age: Number(values.age),
+                    address: {
+                        line1: values.addressLine1,
+                        line2: values.addressLine2,
+                        houseNo: values.houseNo,
+                        pincode: values.pincode
+                    }
+            })
+          )
+            navigate("/employees");
         e.preventDefault();
     }
   return (
@@ -64,7 +96,7 @@ const UpdateEmployee = () => {
                     isEdit={true}
                 />
                 <div className="content-body__form__submission">
-                    <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployee}/>
+                    <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployeeClick}/>
                     <Button type="button" buttonName="Cancel" variant="create-employee--close" onClick={handleCancel}/>
                 </div>
             </form>

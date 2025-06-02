@@ -16,7 +16,7 @@ const sampleUser = {
 }
 
 const Login = () => {
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(localStorage.getItem("showPassword") === "true");
@@ -98,9 +98,21 @@ const Login = () => {
   // }
 
   const loginUser = async () => {
-    const response = await login({ email: username, password: password });
-    localStorage.setItem("token", response.data ? response.data.accessToken : '');
-    navigate('/employees')
+    login({ email: username, password: password })
+    .unwrap()
+    .then((response) => {
+      localStorage.setItem("token", response.accessToken);
+      setError((prevError) => ({
+        ...prevError,
+        error: ""
+      }))
+      navigate('/employees');
+    }).catch((error) => {
+      setError((prevError) => ({
+        ...prevError,
+        error: error.status == 404 ? "Incorrect username or password" : error.data.message
+      }))
+    });
   }
 
   const isLoggedIn = () => {
@@ -177,7 +189,7 @@ const Login = () => {
               required={false}
             />
           </div>
-          <Button type="button" onClick={loginUser} buttonName="Logging in" variant="login" />
+          <Button type="button" onClick={loginUser} disabled={ isLoading } buttonName="Logging in" variant="login" />
           {error.error && <span style={{ color: 'red', fontSize: '12px' }}>{error.error}</span>}
         </form>
       </div>

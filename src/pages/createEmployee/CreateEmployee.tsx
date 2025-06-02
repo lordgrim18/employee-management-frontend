@@ -18,7 +18,7 @@ const CreateEmployee = () => {
     name: "",
     DateOfJoining: "",
     experience: "" as unknown as number,
-    department: "",
+    departmentId: "" as unknown as number,
     role: "" as Role,
     status: "" as Status,
     addressLine1: "",
@@ -42,6 +42,7 @@ const CreateEmployee = () => {
   };
 
   const createEmployee = (e: React.FormEvent) => {
+    console.log(values)
     e.preventDefault();
     // dispatch({ 
     //     type: EMPLOYEE_ACTION_TYPES.ADD, 
@@ -70,6 +71,7 @@ const CreateEmployee = () => {
             role: values.role,
             status: values.status,
             employeeId: crypto.randomUUID(),
+            departmentId: Number(values.departmentId),
             email: values.email,
             password: values.password,
             age: Number(values.age),
