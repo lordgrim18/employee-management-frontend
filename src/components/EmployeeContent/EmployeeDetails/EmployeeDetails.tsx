@@ -9,63 +9,26 @@ import EmployeeDetailsItem from "./EmployeeDetailsItem/EmployeeDetailsItem";
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
 import { useSelector } from "react-redux";
 import type { EmployeeState } from "../../../store/employee/employee.types";
-
-const sampleEmployee = {
-    name: "John",
-    dateOfJoining: "2025-01-23",
-    experience: 3,
-    role: "HR",
-    status: "Active",
-    employeeId: "dfuy54g85478d8937",
-    address: {
-        line1: "22nd",
-        line2: "Baker Street",
-        houseNo: "22B",
-        pincode: "987890"
-    }
-}
+import { useGetSingleEmployeeQuery } from "../../../api-service/employees/employees.api";
 
 const EmployeeDetails = () => {
     const {id} = useParams();
-    const employees = useSelector((state: EmployeeState) => state.employees)
-    let validEmployee : {
-        name: string;
-        dateOfJoining: string;
-        experience: number;
-        role: string;
-        status: string;
-        employeeId: string;
-        address: {
-            line1: string;
-            line2: string;
-            houseNo: string;
-            pincode: string;
-        }
-    };
-    if (employees.length !== 0) {
-        validEmployee = employees.filter((employee) => String(employee.id) === (id) )[0]
-    } else {
-        validEmployee = sampleEmployee;
-    }
+    const {data: validEmployee} = useGetSingleEmployeeQuery({id})
 
-    // const [searchParams, setSearchParams] = useSearchParams();
-
-    // const inputRef = useRef<HTMLInputElement>(null);
-
-    // const getParam = () => {
-    //     const paramValue = searchParams.get("param");
-    //     console.log(paramValue)
-    // }
-
-    // const setParam = () => {
-    //     const newSearchParam = new URLSearchParams(searchParams);
-
-    //     const newValue = inputRef.current ? inputRef.current.value : ''
-
-    //     newSearchParam.set("param", newValue)
-
-    //     setSearchParams(newSearchParam);
-    // }
+    // let validEmployee : {
+    //     name: string;
+    //     dateOfJoining: string;
+    //     experience: number;
+    //     role: string;
+    //     status: string;
+    //     employeeId: string;
+    //     address: {
+    //         line1: string;
+    //         line2: string;
+    //         houseNo: string;
+    //         pincode: string;
+    //     }
+    // };
 
     return (
         <div className="content-body">
@@ -80,31 +43,24 @@ const EmployeeDetails = () => {
                 </div>
                 <div className="content-body__form">
                     <div>
-                        <div className="employee-details-wrapper">
-                            <div className="employee-details--container">
-                                <EmployeeDetailsItem label="Employee Name"  value={validEmployee.name} />
-                                <EmployeeDetailsItem label="Joining Date"  value={validEmployee.dateOfJoining} />
-                                <EmployeeDetailsItem label="Experience"  value={String(validEmployee.experience)} />
-                                <EmployeeDetailsItem label="Role"  value={validEmployee.role} />
+                        { validEmployee &&
+                            <div className="employee-details-wrapper">
+                                <div className="employee-details--container">
+                                    <EmployeeDetailsItem label="Employee Name"  value={validEmployee.name} />
+                                    <EmployeeDetailsItem label="Joining Date"  value={validEmployee.dateOfJoining} />
+                                    <EmployeeDetailsItem label="Experience"  value={String(validEmployee.experience)} />
+                                    <EmployeeDetailsItem label="Role"  value={validEmployee.role} />
+                                </div>
+                                <hr />
+                                <div className="employee-details--container">
+                                    <EmployeeDetailsItem label="Status" variant={`status ${validEmployee.status.toLowerCase()}`} value={validEmployee.status} />
+                                    <EmployeeDetailsItem label="Address"  values={validEmployee.address} />
+                                    <EmployeeDetailsItem label="Employee ID"  value={validEmployee.employeeId} />
+                                    <EmployeeDetailsItem label="" value="" />
+                                </div>
+
                             </div>
-                            <hr />
-                            <div className="employee-details--container">
-                                <EmployeeDetailsItem label="Status" variant={`status ${validEmployee.status.toLowerCase()}`} value={validEmployee.status} />
-                                <EmployeeDetailsItem label="Address"  values={validEmployee.address} />
-                                <EmployeeDetailsItem label="Employee ID"  value={validEmployee.employeeId} />
-                                <EmployeeDetailsItem label="" value="" />
-                            </div>
-
-                            {/* set and get for query params */}
-
-                            {/* <div style={{display: "flex", gap: "10px"}}>
-                                <button style={{height: "max-content"}} className="get-query-param" onClick={getParam}>Get</button>
-
-                                <input type="text" ref={inputRef} />
-                                <button style={{height: "max-content"}} className="set-query-param" onClick={setParam}>Set</button>
-                            </div> */}
-
-                        </div>
+                        }
                     </div>
                 </div>
             </div>

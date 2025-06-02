@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { data, Link, useSearchParams } from "react-router-dom";
 
 import "./EmployeeList.css";
 import Select from "../../Select/Select";
@@ -8,89 +8,34 @@ import { useState } from "react";
 import createIcon from '../../../assets/icons/plus.svg'
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
 import { useSelector } from "react-redux";
-import type { EmployeeState } from "../../../store/employee/employee.types";
+import type { Employee, EmployeeState } from "../../../store/employee/employee.types";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-
-const sampleEmployeeList = [
-  {
-    id: 1,
-    name: "John",
-    dateOfJoining: "2025-01-23",
-    experience: 3,
-    role: "HR",
-    status: "Active",
-    employeeId: "dfuy54g85478d8937",
-    address: {
-      line1: "22nd",
-      line2: "Baker Street",
-      houseNo: "22B",
-      pincode: "987890",
-    },
-  },
-  {
-    id: 2,
-    name: "Jane",
-    dateOfJoining: "2025-01-23",
-    experience: 3,
-    role: "HR",
-    status: "Inactive",
-    employeeId: "kg5903ej3uhg20943",
-    address: {
-      line1: "22nd",
-      line2: "Baker Street",
-      houseNo: "22B",
-      pincode: "987890",
-    },
-  },
-  {
-    id: 3,
-    name: "Mack",
-    dateOfJoining: "2025-01-23",
-    experience: 3,
-    role: "HR",
-    status: "Active",
-    employeeId: "f949h2948u3098g",
-    address: {
-      line1: "22nd",
-      line2: "Baker Street",
-      houseNo: "22B",
-      pincode: "987890",
-    },
-  },
-  {
-    id: 4,
-    name: "Max",
-    dateOfJoining: "2025-01-23",
-    experience: 3,
-    role: "HR",
-    status: "Probation",
-    employeeId: "nju3he3879e393e",
-    address: {
-      line1: "22nd",
-      line2: "Baker Street",
-      houseNo: "22B",
-      pincode: "987890",
-    },
-  },
-];
+import { useDeleteEmployeeMutation, useGetEmployeeListQuery } from "../../../api-service/employees/employees.api";
 
 const EmployeeList = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [deleteId, setDeleteId] = useState(Number());
+  const employeesList = useGetEmployeeListQuery({});
+  const [deleteEmployee, {isLoading: isEmployeeDeleting}] = useDeleteEmployeeMutation();
 
   const statusFilter = searchParams.get("status");
-  
-    // const employees = useSelector((state: EmployeeState) => state.employees)
-    const employees = useAppSelector(state => state.employee.employees )
-    console.log(employees)
-    const employeesList = employees.length !== 0 ? employees : sampleEmployeeList
 
-  const handleDelete = () => {
+  const handleDelete = ({id}: {id: number}) => {
     setShowPopup(true);
+    setDeleteId(id);
   };
 
   const handleDeleteConfirm = () => {
     console.log("deleting");
+    deleteEmployee({id: deleteId })
+    .unwrap()
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error);
+    })
     setShowPopup(false);
   };
 
@@ -144,22 +89,23 @@ const EmployeeList = () => {
             <p>Experience</p>
             <p>Action</p>
           </div>
-          {(statusFilter
-            ? employeesList.filter(
-                (sampleEmployee) => sampleEmployee.status === statusFilter
+          {employeesList.data? (statusFilter
+            ? employeesList.data.filter(
+                (singleEmployee: Employee) => singleEmployee.status === statusFilter
               )
-            : employeesList
-          ).map((employee, index) => (
+            : employeesList.data
+          ).map((employee: Employee, index: number) => (
             <EmployeeListItem
               key={index}
               employee={employee}
-              onClick={handleDelete}
+              onClick={() => handleDelete({id: employee.id})}
             />
-          ))}
+          )) : [] }
         </div>
       </div>
       <DeleteConfirmPopup
         isOpen={showPopup}
+        isEmployeeDeleting={isEmployeeDeleting}
         onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}
       />

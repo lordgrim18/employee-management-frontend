@@ -10,11 +10,6 @@ import useMousePosition from "../../hooks/useMousePosition";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../api-service/auth/login.api";
 
-const sampleUser = {
-  username: "John",
-  password: "Password"
-}
-
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   const [username, setUsername] = useState("");

@@ -12,6 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { addEmployee } from "../../store/employee/employeeReducer";
 import type { Role, Status } from "../../store/employee/employee.types";
+import { useCreateEmployeeMutation } from "../../api-service/employees/employees.api";
 
 const CreateEmployee = () => {
   const [values, setValues] = useState({
@@ -31,6 +32,8 @@ const CreateEmployee = () => {
     age: "" as unknown as number,
   });
 
+  const [createEmployee, {isLoading}] = useCreateEmployeeMutation();
+
   const navigate = useNavigate();
 
   const employees = useAppSelector((state) => state.employee.employees);
@@ -41,36 +44,14 @@ const CreateEmployee = () => {
     navigate(-1);
   };
 
-  const createEmployee = (e: React.FormEvent) => {
-    console.log(values)
+  const createEmployeeClick = async (e: React.FormEvent) => {
     e.preventDefault();
-    // dispatch({ 
-    //     type: EMPLOYEE_ACTION_TYPES.ADD, 
-    //     payload: {
-    //         id: employees.length + 1,
-    //         name: values.name,
-    //         dateOfJoining: values.DateOfJoining,
-    //         experience: values.experience,
-    //         role: values.role,
-    //         status: values.status,
-    //         employeeId: crypto.randomUUID(),
-    //         address: {
-    //             line1: values.addressLine1,
-    //             line2: values.addressLine2,
-    //             houseNo: values.houseNo,
-    //             pincode: values.pincode
-    //         }
-    //     } 
-    // });
-
-    dispatch( addEmployee({
-            id: employees.length + 1,
+    createEmployee({
             name: values.name,
             dateOfJoining: values.DateOfJoining,
             experience: Number(values.experience),
             role: values.role,
             status: values.status,
-            employeeId: crypto.randomUUID(),
             departmentId: Number(values.departmentId),
             email: values.email,
             password: values.password,
@@ -82,8 +63,13 @@ const CreateEmployee = () => {
                 pincode: values.pincode
             }
     })
-  )
-    navigate("/employees");
+    .unwrap()
+    .then((response) => {
+      console.log("employee created");
+      navigate("/employees");
+    })
+    .catch((error) => console.log(error))
+
   };
 
   return (
@@ -105,7 +91,7 @@ const CreateEmployee = () => {
             <Button
               buttonName="Create"
               variant="create-employee--create"
-              onClick={createEmployee}
+              onClick={createEmployeeClick}
             />
             <Button
               type="button"
