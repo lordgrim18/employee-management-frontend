@@ -72,12 +72,8 @@ const Login = () => {
   }, [username, password])
 
   useEffect(() => {
-    console.log("use effect running");
     ( error.usernameError || error.passwordError || error.error || username.length === 0 || password.length === 0 ) ? setIsError(true) : setIsError(false)
   })
-
-  console.log("error", error)
-  console.log("isError", isError);
 
   useEffect(() => {
     if (usernameRef.current) {
@@ -109,80 +105,81 @@ const Login = () => {
   };
 
   if (isLoggedIn()) {
-    return <Navigate to='/employees' />
-  }
+    navigate("/employees")
+  } else {
 
   return (
-    <div className="login-page">
-      <div className="side-banner">
-        <img src={loginSideLogo} alt="side-banner" />
-      </div>
-      <div className="login-form">
-        <form className="login-form-content">
-          <div>
-            <h3>Mouse x - {mousePosition.x}</h3>
-            <h3>Mouse y - {mousePosition.y}</h3>
-          </div>
-          <img src={KVlogo} alt="kv-logo" className="kv-logo" />
-          <div className="login-form__form">
-            <LoginInput
-              id="login-username"
-              label="Username"
-              value={username}
-              onChange={updateUsername}
-              ref={usernameRef}
-              endAdornment={
-                <button
-                  className="login--clear-button"
-                  type="button"
-                  disabled={username.length === 0}
-                  onClick={() => setUsername("")}
-                >
-                  Clear
-                </button>
-              }
-            />
-            {error.usernameError && <span style={{ color: 'red', fontSize: '12px' }}>{error.usernameError}</span>}
+      <div className="login-page">
+        <div className="side-banner">
+          <img src={loginSideLogo} alt="side-banner" />
+        </div>
+        <div className="login-form">
+          <form className="login-form-content">
+            <div>
+              <h3>Mouse x - {mousePosition.x}</h3>
+              <h3>Mouse y - {mousePosition.y}</h3>
+            </div>
+            <img src={KVlogo} alt="kv-logo" className="kv-logo" />
+            <div className="login-form__form">
+              <LoginInput
+                id="login-username"
+                label="Username"
+                value={username}
+                onChange={updateUsername}
+                ref={usernameRef}
+                endAdornment={
+                  <button
+                    className="login--clear-button"
+                    type="button"
+                    disabled={username.length === 0}
+                    onClick={() => setUsername("")}
+                  >
+                    Clear
+                  </button>
+                }
+              />
+              {error.usernameError && <span style={{ color: 'red', fontSize: '12px' }}>{error.usernameError}</span>}
 
-            <LoginInput
-              id="login-password"
-              label="Password"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              endAdornment={
-                <button
-                  className="login--clear-button"
-                  type="button"
-                  disabled={password.length === 0 }
-                  onClick={() => setPassword("")}
-                >
-                  Clear
-                </button>
-              }
-            />
-            {error.passwordError && <span style={{ color: 'red', fontSize: '12px' }}>{error.passwordError}</span>}
+              <LoginInput
+                id="login-password"
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                endAdornment={
+                  <button
+                    className="login--clear-button"
+                    type="button"
+                    disabled={password.length === 0 }
+                    onClick={() => setPassword("")}
+                  >
+                    Clear
+                  </button>
+                }
+              />
+              {error.passwordError && <span style={{ color: 'red', fontSize: '12px' }}>{error.passwordError}</span>}
 
-            <LoginInput
-              id="login-show-password"
-              label="Show Password"
-              type="checkbox"
-              // {setShowPassword ? "checked" : }
-              onChange={() => setShowPassword((prev) => {
-                localStorage.setItem("showPassword", String(!prev))
-                return !prev
-              })}
-              checked={showPassword}
-              commonClass="form-element-checkbox"
-              required={false}
-            />
-          </div>
-          <Button type="button" onClick={loginUser} disabled={ isLoading || isError } buttonName="Logging in" variant="login" />
-          {error.error && <span style={{ color: 'red', fontSize: '12px' }}>{error.error}</span>}
-        </form>
+              <LoginInput
+                id="login-show-password"
+                label="Show Password"
+                type="checkbox"
+                // {setShowPassword ? "checked" : }
+                onChange={() => setShowPassword((prev) => {
+                  localStorage.setItem("showPassword", String(!prev))
+                  return !prev
+                })}
+                checked={showPassword}
+                commonClass="form-element-checkbox"
+                required={false}
+              />
+            </div>
+            <Button type="button" onClick={loginUser} disabled={ isLoading || isError } buttonName="Log in" variant="login" />
+            {error.error && <span style={{ color: 'red', fontSize: '12px' }}>{error.error}</span>}
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Login;

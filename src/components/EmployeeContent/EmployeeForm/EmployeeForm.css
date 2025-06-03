@@ -1,10 +1,10 @@
 .content-body__form-wrapper {
-    height: 68vh;
+    max-height: 68vh;
     overflow: auto;
     border-radius: 15px;
     background-color: white;
     box-shadow: 3px 3px 10px rgb(235, 233, 233);
-    padding: 0px 20px 20px 20px;
+    padding: 15px 20px 20px 20px;
     border: 20px solid white;
 }
 

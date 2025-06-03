@@ -8,7 +8,7 @@ import { useGetSingleEmployeeQuery, useUpdateEmployeeMutation } from "../../api-
 
 const UpdateEmployee = () => {
     const {id} = useParams();
-    const {data: employee, isLoading: isEmployeesLoading} = useGetSingleEmployeeQuery({id})
+    const {data: employee, isLoading: isEmployeesLoading, error: employeeError} = useGetSingleEmployeeQuery({id})
 
     const navigate = useNavigate();
     const [values, setValues] = useState({
@@ -71,6 +71,13 @@ const UpdateEmployee = () => {
         })
     }, [employee])
 
+    if (employeeError) {
+        console.log(employeeError)
+        if (employeeError.status === 401) {
+            localStorage.removeItem("token");
+            navigate("/")
+        }
+    }
 
     const handleCancel = () => {
         navigate(-1);
@@ -101,7 +108,10 @@ const UpdateEmployee = () => {
         console.log("employee updated");
         navigate("/employees");
         })
-        .catch((error) => console.log(error))
+        .catch((error) => {
+            console.log(error)
+            
+        })
     }
 
   return (
@@ -113,21 +123,25 @@ const UpdateEmployee = () => {
                 <form className="content-body__form">
                     {isEmployeesLoading ? (
                         <p style={{color: "green"}}>Loading employee...</p>
-                    ) : (
-                    <EmployeeForm 
-                        values={values}
-                        onChange={(field, value) => 
-                            setValues({
-                                ...values,
-                                [field]: value
-                            })
-                        }
-                        isEdit={true}
-                    /> )}
-                    <div className="content-body__form__submission">
-                        <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployeeClick} disabled={isEmployeeUpdating}/>
-                        <Button type="button" buttonName="Cancel" variant="create-employee--close" onClick={handleCancel} disabled={isEmployeeUpdating}/>
-                    </div>
+                    ) : employee ? (
+                    <>
+                        <EmployeeForm 
+                            values={values}
+                            onChange={(field, value) => 
+                                setValues({
+                                    ...values,
+                                    [field]: value
+                                })
+                            }
+                            isEdit={true}
+                        />
+                        <div className="content-body__form__submission">
+                            <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployeeClick} disabled={isEmployeeUpdating}/>
+                            <Button type="button" buttonName="Cancel" variant="create-employee--close" onClick={handleCancel} disabled={isEmployeeUpdating}/>
+                        </div>
+                    </>
+                    ) : (<p style={{color: "red", textAlign: "center"}}>No Employee found For id - <strong>{id}</strong></p>)}
+                    
                 </form>
             </div>
     </>

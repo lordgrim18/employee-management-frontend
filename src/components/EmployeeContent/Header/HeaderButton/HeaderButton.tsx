@@ -6,14 +6,15 @@ interface HeaderButtonProps {
     icon: string;
     name: string;
     variant?: string;
-    linkTo: string
+    linkTo: string;
+    disabled?: boolean
 }
 
-const HeaderButton = ({icon, name, variant, linkTo}: HeaderButtonProps) => {
+const HeaderButton = ({icon, name, variant, linkTo, disabled}: HeaderButtonProps) => {
     return (
         <div className={`content-body__header__functions-button`} >
             <Link to={`${linkTo}`} style={{textDecoration: "none"}}>
-                <button>
+                <button disabled={disabled}>
                     <i className={`header-button-icon ${variant}`}>
                         <img src={icon} />
                     </i>

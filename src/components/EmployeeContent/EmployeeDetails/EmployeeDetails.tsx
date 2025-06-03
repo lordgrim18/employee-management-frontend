@@ -37,29 +37,31 @@ const EmployeeDetails = () => {
                         Employee Details 
                     </h1>
                     <div className="content-body__header__functions">
-                        <HeaderButton icon={editIcon} name="Edit" linkTo="update"/>
+                        <HeaderButton icon={editIcon} name="Edit" linkTo="update" disabled={validEmployee ? false : true}/>
                     </div>
                 </div>
-                <div className="content-body__form">
-                    <div>
-                        { validEmployee &&
-                            <div className="employee-details-wrapper">
-                                <div className="employee-details--container">
-                                    <EmployeeDetailsItem label="Employee Name"  value={validEmployee.name} />
-                                    <EmployeeDetailsItem label="Joining Date"  value={validEmployee.dateOfJoining} />
-                                    <EmployeeDetailsItem label="Experience"  value={String(validEmployee.experience)} />
-                                    <EmployeeDetailsItem label="Role"  value={validEmployee.role} />
-                                </div>
-                                <hr />
-                                <div className="employee-details--container">
-                                    <EmployeeDetailsItem label="Status" variant={`status ${validEmployee.status.toLowerCase()}`} value={validEmployee.status} />
-                                    <EmployeeDetailsItem label="Address"  values={validEmployee.address} />
-                                    <EmployeeDetailsItem label="Employee ID"  value={validEmployee.employeeId} />
-                                    <EmployeeDetailsItem label="" value="" />
-                                </div>
+                <div className="content-body__form-wrapper">
+                    <div className="content-body__form">
+                        <div>
+                            { validEmployee ?
+                                (<div className="employee-details-wrapper">
+                                    <div className="employee-details--container">
+                                        <EmployeeDetailsItem label="Employee Name"  value={validEmployee.name} />
+                                        <EmployeeDetailsItem label="Joining Date"  value={validEmployee.dateOfJoining} />
+                                        <EmployeeDetailsItem label="Experience"  value={String(validEmployee.experience)} />
+                                        <EmployeeDetailsItem label="Role"  value={validEmployee.role} />
+                                    </div>
+                                    <hr />
+                                    <div className="employee-details--container">
+                                        <EmployeeDetailsItem label="Status" variant={`status ${validEmployee.status.toLowerCase()}`} value={validEmployee.status} />
+                                        <EmployeeDetailsItem label="Address"  values={validEmployee.address} />
+                                        <EmployeeDetailsItem label="Employee ID"  value={validEmployee.employeeId} />
+                                        <EmployeeDetailsItem label="" value="" />
+                                    </div>
 
-                            </div>
-                        }
+                                </div>) : (<p style={{color: "red", textAlign: "center"}}>No Employee found For id - <strong>{id}</strong></p>)
+                            }
+                        </div>
                     </div>
                 </div>
         </>

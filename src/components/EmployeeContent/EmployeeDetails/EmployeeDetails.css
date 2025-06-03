@@ -15,6 +15,16 @@
     cursor: pointer;
 }
 
+.content-body__header__functions-button button:disabled {
+    cursor: not-allowed;
+    /* background-color: #0096e0; */
+    color: #1010104D;
+}
+
+.content-body__header__functions-button button:disabled div {
+    color: #1010104D;
+}
+
 .header-button-icon{
     color: white;
     border-radius: 50%;
