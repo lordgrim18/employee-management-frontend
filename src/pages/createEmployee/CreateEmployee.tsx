@@ -64,7 +64,13 @@ const CreateEmployee = () => {
       console.log("employee created");
       navigate("/employees");
     })
-    .catch((error) => console.log(error))
+    .catch((error) => {
+      console.log(error)
+      if (error.status === 401) {
+            localStorage.removeItem("token");
+            navigate("/")
+        }
+    })
 
   };
 

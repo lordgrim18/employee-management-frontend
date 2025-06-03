@@ -110,7 +110,10 @@ const UpdateEmployee = () => {
         })
         .catch((error) => {
             console.log(error)
-            
+            if (error.status === 401) {
+                localStorage.removeItem("token");
+                navigate("/")
+            }
         })
     }
 

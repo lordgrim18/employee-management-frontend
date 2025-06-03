@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import "./EmployeeList.css";
 import Select from "../../Select/Select";
@@ -19,6 +19,7 @@ const EmployeeList = () => {
   const [deleteEmployee, {isLoading: isEmployeeDeleting}] = useDeleteEmployeeMutation();
 
   const statusFilter = searchParams.get("status");
+  const navigate = useNavigate();
 
   const handleDelete = ({id}: {id: number}) => {
     setShowPopup(true);
@@ -33,7 +34,11 @@ const EmployeeList = () => {
       console.log(response)
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error)
+      if (error.status === 401) {
+            localStorage.removeItem("token");
+            navigate("/")
+        }
     })
     setShowPopup(false);
   };
@@ -41,6 +46,14 @@ const EmployeeList = () => {
   const handleDeleteCancel = () => {
     setShowPopup(false);
   };
+
+  if (employeesError) {
+        console.log(employeesError)
+        if (employeesError.status === 401) {
+            localStorage.removeItem("token");
+            navigate("/")
+        }
+    }
 
   const filteredEmployees = employeesList
     ? (statusFilter

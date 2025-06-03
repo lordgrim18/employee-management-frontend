@@ -7,6 +7,7 @@ import MultiInput from "../../MultiInput/MultiInput";
 import VariableSelect from "../../VariableSelect/VariableSelect";
 import { useGetDepartmentListQuery } from "../../../api-service/department/department.api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface employeeFormItems {
   name: string;
@@ -38,10 +39,19 @@ const EmployeeForm = ({
   const [error, setError] = useState({
     name: "",
     dateOfJoining: ""
-    
-
   })
-  const {data: departmentList, isLoading: isDepartmentLoading} = useGetDepartmentListQuery({});
+
+  const navigate = useNavigate();
+
+  const {data: departmentList, isLoading: isDepartmentLoading, error: departmentsError} = useGetDepartmentListQuery({});
+
+  if (departmentsError) {
+        console.log(departmentsError)
+        if (departmentsError.status === 401) {
+            localStorage.removeItem("token");
+            navigate("/")
+        }
+    }
 
   return (
     <div className="content-body__form__fields">
