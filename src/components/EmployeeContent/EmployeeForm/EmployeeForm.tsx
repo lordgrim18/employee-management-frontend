@@ -5,6 +5,7 @@ import Input from "../../Input/Input";
 import Select from "../../Select/Select";
 import MultiInput from "../../MultiInput/MultiInput";
 import VariableSelect from "../../VariableSelect/VariableSelect";
+import { useGetDepartmentListQuery } from "../../../api-service/department/department.api";
 
 const EmployeeForm = ({
   values,
@@ -30,6 +31,10 @@ const EmployeeForm = ({
   onChange: (field: string, value: string) => void;
   isEdit: boolean;
 }) => {
+
+  const {data: departmentList, isLoading: isDepartmentLoading} = useGetDepartmentListQuery({});
+  console.log(departmentList);
+
   return (
     <div className="content-body__form__fields">
       <Input
@@ -64,11 +69,8 @@ const EmployeeForm = ({
         labelName="Department"
         variant="employee-create"
         placeholderItem="Choose Department"
-        items={[
-          { id: 1, name: "dept 1" },
-          { id: 2, name: "Backend" },
-          { id: 6, name: "Test" },
-        ]}
+        disabled={isDepartmentLoading}
+        items={ !isDepartmentLoading ? departmentList : [] }
         value={values.departmentId}
         onChange={(e) => onChange("departmentId", e.target.value)}
       />

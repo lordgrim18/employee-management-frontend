@@ -11,7 +11,7 @@ const EmployeeDetailsItem = ({ label, value, values, variant }: EmployeeDetailsI
   return (
     <div className="employee-detail">
       <p className="employee-detail-label">{label}</p>
-      {value && <span className={`employee-detail-value employee-detail-value--${variant}`}>{value}</span>}
+      {value && <span className={`employee-detail-value employee-detail-value--${variant}`}>{value} {label === 'Experience' ? 'Yrs' : ''}</span>}
       {values && <span className="employee-detail-value">
                 <span className="employee-detail-value-multiple">{values.line1}, </span>
                 <span className="employee-detail-value-multiple">{values.line2}, </span>

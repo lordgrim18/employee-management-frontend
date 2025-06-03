@@ -8,6 +8,7 @@ const  VariableSelect = ({
   items,
   value,
   onChange,
+  disabled,
 }: {
   commonClass?: string;
   variant: string;
@@ -17,12 +18,13 @@ const  VariableSelect = ({
   items: {id: number; name: string}[];
   value?: number;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  disabled?: boolean;
 }) => {
   return (
     <div className={`${commonClass} form-element--${variant}`}>
       <label htmlFor={selectId}>{labelName}</label>
 
-      <select id={selectId} value={value} onChange={onChange}>
+      <select id={selectId} value={value} onChange={onChange} disabled={disabled}>
         <option value="" className="dropdown-placeholder">
           {placeholderItem}
         </option>
