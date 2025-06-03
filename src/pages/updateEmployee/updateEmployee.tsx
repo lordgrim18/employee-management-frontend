@@ -25,7 +25,7 @@ const UpdateEmployee = () => {
         pincode: '',
         employeeId: '',
         email: '',
-        password: '',
+        // password: '',
         age: '' as unknown as number,
     });
 
@@ -66,7 +66,7 @@ const UpdateEmployee = () => {
                 pincode: employee.address.pincode,
                 employeeId: employee.employeeId,
                 email: employee.email,
-                password: '',
+                // password: '',
                 age: employee.age,
         })
     }, [employee])
@@ -105,32 +105,32 @@ const UpdateEmployee = () => {
     }
 
   return (
-    <div className="content-body">
-        <div className="content-body__content">
+        <>
             <h1 className="content-body__header">
                   Edit Employee 
             </h1>
-            <form className="content-body__form">
-                {isEmployeesLoading ? (
-                    <p style={{color: "green"}}>Loading employee...</p>
-                ) : (
-                <EmployeeForm 
-                    values={values}
-                    onChange={(field, value) => 
-                        setValues({
-                            ...values,
-                            [field]: value
-                        })
-                    }
-                    isEdit={true}
-                /> )}
-                <div className="content-body__form__submission">
-                    <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployeeClick} disabled={isEmployeeUpdating}/>
-                    <Button type="button" buttonName="Cancel" variant="create-employee--close" onClick={handleCancel} disabled={isEmployeeUpdating}/>
-                </div>
-            </form>
-        </div>
-    </div>
+            <div className="content-body__form-wrapper">
+                <form className="content-body__form">
+                    {isEmployeesLoading ? (
+                        <p style={{color: "green"}}>Loading employee...</p>
+                    ) : (
+                    <EmployeeForm 
+                        values={values}
+                        onChange={(field, value) => 
+                            setValues({
+                                ...values,
+                                [field]: value
+                            })
+                        }
+                        isEdit={true}
+                    /> )}
+                    <div className="content-body__form__submission">
+                        <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployeeClick} disabled={isEmployeeUpdating}/>
+                        <Button type="button" buttonName="Cancel" variant="create-employee--close" onClick={handleCancel} disabled={isEmployeeUpdating}/>
+                    </div>
+                </form>
+            </div>
+    </>
   );
 };
 

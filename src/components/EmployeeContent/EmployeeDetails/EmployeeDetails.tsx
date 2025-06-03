@@ -31,8 +31,7 @@ const EmployeeDetails = () => {
     // };
 
     return (
-        <div className="content-body">
-            <div className="content-body__content">
+            <>
                 <div className="content-body__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h1>
                         Employee Details 
@@ -63,8 +62,7 @@ const EmployeeDetails = () => {
                         }
                     </div>
                 </div>
-            </div>
-        </div>
+        </>
     );
 };
 

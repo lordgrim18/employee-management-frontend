@@ -1,4 +1,4 @@
-import { data, Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import "./EmployeeList.css";
 import Select from "../../Select/Select";
@@ -7,10 +7,9 @@ import DeleteConfirmPopup from "../DeleteConfirmPopup/DeleteConfirmPopup";
 import { useState } from "react";
 import createIcon from '../../../assets/icons/plus.svg'
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
-import { useSelector } from "react-redux";
-import type { Employee, EmployeeState } from "../../../store/employee/employee.types";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
+import type { Employee } from "../../../store/employee/employee.types";
 import { useDeleteEmployeeMutation, useGetEmployeeListQuery } from "../../../api-service/employees/employees.api";
+import Button from "../../Button/Button";
 
 const EmployeeList = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -51,8 +50,7 @@ const EmployeeList = () => {
     : [];
 
   return (
-    <div className="content-body">
-      <div className="content-body__content">
+      <>
         <div
           className="content-body__header"
           style={{
@@ -97,9 +95,9 @@ const EmployeeList = () => {
             <p>Action</p>
           </div>
           {isEmployeesLoading ? (
-              <p style={{color: "green"}}>Loading employees...</p>
+              <p style={{color: "green", textAlign: "center"}}>Loading employees...</p>
           ) : employeesError ? (
-            <div style={{color: "red"}}>
+            <div style={{color: "red", textAlign: "center"}}>
               <p>Error loading employees. Please try again later.</p>
             </div>
           ) : filteredEmployees.length > 0 ? (
@@ -116,14 +114,13 @@ const EmployeeList = () => {
             </div>
           )}
         </div>
-      </div>
       <DeleteConfirmPopup
         isOpen={showPopup}
         isEmployeeDeleting={isEmployeeDeleting}
         onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}
       />
-    </div>
+    </>
   );
 };
 

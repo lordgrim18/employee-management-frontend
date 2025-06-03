@@ -26,7 +26,7 @@ const CreateEmployee = () => {
     addressLine2: "",
     houseNo: "",
     pincode: "",
-    employeeId: "",
+    // employeeId: "",
     email: "",
     password: "",
     age: "" as unknown as number,
@@ -69,38 +69,38 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div className="content-body">
-      <div className="content-body__content">
+      <>
         <h1 className="content-body__header">Create Employee</h1>
-        <form className="content-body__form">
-          <EmployeeForm
-            values={values}
-            onChange={(field, value) =>
-              setValues({
-                ...values,
-                [field]: value,
-              })
-            }
-            isEdit={false}
-          />
-          <div className="content-body__form__submission">
-            <Button
-              buttonName="Create"
-              variant="create-employee--create"
-              onClick={createEmployeeClick}
-              disabled={isLoading}
+        <div className="content-body__form-wrapper">
+          <form className="content-body__form">
+            <EmployeeForm
+              values={values}
+              onChange={(field, value) =>
+                setValues({
+                  ...values,
+                  [field]: value,
+                })
+              }
+              isEdit={false}
             />
-            <Button
-              type="button"
-              buttonName="Cancel"
-              variant="create-employee--close"
-              onClick={handleCancel}
-              disabled={isLoading}
-            />
-          </div>
-        </form>
-      </div>
-    </div>
+            <div className="content-body__form__submission">
+              <Button
+                buttonName="Create"
+                variant="create-employee--create"
+                onClick={createEmployeeClick}
+                disabled={isLoading}
+              />
+              <Button
+                type="button"
+                buttonName="Cancel"
+                variant="create-employee--close"
+                onClick={handleCancel}
+                disabled={isLoading}
+              />
+            </div>
+          </form>
+        </div>
+    </>
   );
 };
 

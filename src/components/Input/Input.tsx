@@ -8,7 +8,8 @@ const Input = ({
   inputPlaceholder,
   value,
   onChange,
-  disabled = false
+  disabled = false,
+  required = true,
 }: {
   inputId: string;
   inputType: string;
@@ -18,6 +19,7 @@ const Input = ({
   value?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
+  required?: boolean;
 }) => {
   return (
     <div className={`form-element form-element--${variant}`}>
@@ -29,6 +31,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
+        required = {required}
       />
     </div>
   );

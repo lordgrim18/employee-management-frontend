@@ -6,34 +6,42 @@ import Select from "../../Select/Select";
 import MultiInput from "../../MultiInput/MultiInput";
 import VariableSelect from "../../VariableSelect/VariableSelect";
 import { useGetDepartmentListQuery } from "../../../api-service/department/department.api";
+import { useState } from "react";
+
+interface employeeFormItems {
+  name: string;
+  dateOfJoining: string;
+  experience: number;
+  departmentId: number;
+  role: string;
+  status: string;
+  addressLine1: string;
+  addressLine2: string;
+  houseNo: string;
+  pincode: string;
+  employeeId?: string;
+  email: string;
+  password?: string;
+  age: number;
+}
 
 const EmployeeForm = ({
   values,
   onChange,
   isEdit,
 }: {
-  values: {
-    name: string;
-    dateOfJoining: string;
-    experience: number;
-    departmentId: number;
-    role: string;
-    status: string;
-    addressLine1: string;
-    addressLine2: string;
-    houseNo: string;
-    pincode: string;
-    employeeId: string;
-    email: string;
-    password: string;
-    age: number;
-  };
+  values: employeeFormItems;
   onChange: (field: string, value: string) => void;
   isEdit: boolean;
 }) => {
+  
+  const [error, setError] = useState({
+    name: "",
+    dateOfJoining: ""
+    
 
+  })
   const {data: departmentList, isLoading: isDepartmentLoading} = useGetDepartmentListQuery({});
-  console.log(departmentList);
 
   return (
     <div className="content-body__form__fields">

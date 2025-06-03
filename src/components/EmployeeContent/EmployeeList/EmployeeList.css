@@ -32,6 +32,9 @@
     flex-direction: column;
     gap: 20px;
     font-size: 16px;
+    height: 68vh;
+    overflow: auto;
+    position: relative;
 }
 
 .employee-list-header, .employee-list-item  {
