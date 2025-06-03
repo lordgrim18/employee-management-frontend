@@ -17,8 +17,8 @@ interface employeeFormItems {
   role: string;
   status: string;
   addressLine1: string;
-  addressLine2: string;
-  houseNo: string;
+  addressLine2?: string;
+  houseNo?: string;
   pincode: string;
   employeeId?: string;
   email: string;

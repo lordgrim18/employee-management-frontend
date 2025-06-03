@@ -1,4 +1,3 @@
-import { updateEmployee } from "../../store/employee/employeeReducer";
 import baseApi from "../api";
 
 export const employeeApi = baseApi.injectEndpoints({

@@ -1,15 +1,15 @@
+import { useState } from "react";
+
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import "./EmployeeList.css";
 import Select from "../../Select/Select";
 import EmployeeListItem from "./EmployeeListItem/EmployeeListItem";
 import DeleteConfirmPopup from "../DeleteConfirmPopup/DeleteConfirmPopup";
-import { useState } from "react";
 import createIcon from '../../../assets/icons/plus.svg'
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
 import type { Employee } from "../../../store/employee/employee.types";
 import { useDeleteEmployeeMutation, useGetEmployeeListQuery } from "../../../api-service/employees/employees.api";
-import Button from "../../Button/Button";
 
 const EmployeeList = () => {
   const [showPopup, setShowPopup] = useState(false);

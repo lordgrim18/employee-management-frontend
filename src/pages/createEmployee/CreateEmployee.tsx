@@ -1,36 +1,13 @@
-import { useState } from "react";
-import Button from "../../components/Button/Button";
-import EmployeeForm from "../../components/EmployeeContent/EmployeeForm/EmployeeForm";
+import { useNavigate } from "react-router-dom";
 
 import "../../components/EmployeeContent/Header/Header.css";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  EMPLOYEE_ACTION_TYPES,
-  type EmployeeState,
-} from "../../store/employee/employee.types";
-import { useAppDispatch, useAppSelector } from "../../store/store";
-import { addEmployee } from "../../store/employee/employeeReducer";
-import type { Role, Status } from "../../store/employee/employee.types";
+import Button from "../../components/Button/Button";
+import EmployeeForm from "../../components/EmployeeContent/EmployeeForm/EmployeeForm";
 import { useCreateEmployeeMutation } from "../../api-service/employees/employees.api";
+import useEmployeeFormValues, { transformFormValuesToEmployee } from "../../hooks/useEmployeeFormValues";
 
 const CreateEmployee = () => {
-  const [values, setValues] = useState({
-    name: "",
-    dateOfJoining: "",
-    experience: "" as unknown as number,
-    departmentId: "" as unknown as number,
-    role: "" as Role,
-    status: "" as Status,
-    addressLine1: "",
-    addressLine2: "",
-    houseNo: "",
-    pincode: "",
-    // employeeId: "",
-    email: "",
-    password: "",
-    age: "" as unknown as number,
-  });
+  const {values, setValues} = useEmployeeFormValues() 
 
   const [createEmployee, {isLoading}] = useCreateEmployeeMutation();
 
@@ -43,21 +20,8 @@ const CreateEmployee = () => {
   const createEmployeeClick = async (e: React.FormEvent) => {
     e.preventDefault();
     createEmployee({
-            name: values.name,
-            dateOfJoining: values.dateOfJoining,
-            experience: Number(values.experience),
-            role: values.role,
-            status: values.status,
-            departmentId: Number(values.departmentId),
-            email: values.email,
-            password: values.password,
-            age: Number(values.age),
-            address: {
-                line1: values.addressLine1,
-                line2: values.addressLine2,
-                houseNo: values.houseNo,
-                pincode: values.pincode
-            }
+            ...transformFormValuesToEmployee(values),
+            password: values.password
     })
     .unwrap()
     .then((response) => {

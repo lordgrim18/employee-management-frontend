@@ -86,7 +86,7 @@ export interface Employee {
 
   status: Status;
 
-  departmentId: number | string;
+  departmentId: number;
 
 }
 

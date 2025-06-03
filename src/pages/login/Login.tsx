@@ -1,13 +1,13 @@
+import React, { useEffect, useRef, useState, type SetStateAction } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import "./Login.css";
+import useMousePosition from "../../hooks/useMousePosition";
 import LoginInput from "../../components/LoginInput/LoginInput";
 import Button from "../../components/Button/Button";
-
 import loginSideLogo from "../../assets/kv-login.jpeg";
 import KVlogo from "../../assets/kv-logo.png";
-import { useEffect, useRef, useState, type SetStateAction } from "react";
-
-import useMousePosition from "../../hooks/useMousePosition";
-import { Navigate, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../api-service/auth/login.api";
 
 const Login = () => {
@@ -26,13 +26,6 @@ const Login = () => {
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const mousePosition = useMousePosition();
-
-  const updateUsername = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setUsername(event.target.value);
-  };
-
 
   useEffect(() => {
     if (username.length < 4 && username.length > 0) {
@@ -81,7 +74,14 @@ const Login = () => {
     }
   }, []);
 
-  const loginUser = async () => {
+  const updateUsername = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setUsername(event.target.value);
+  };
+
+  const loginUser = async (e: React.FormEvent) => {
+    e.preventDefault();
     login({ email: username, password: password })
     .unwrap()
     .then((response) => {
@@ -114,7 +114,7 @@ const Login = () => {
           <img src={loginSideLogo} alt="side-banner" />
         </div>
         <div className="login-form">
-          <form className="login-form-content">
+          <form className="login-form-content" onSubmit={loginUser}>
             <div>
               <h3>Mouse x - {mousePosition.x}</h3>
               <h3>Mouse y - {mousePosition.y}</h3>
@@ -173,7 +173,7 @@ const Login = () => {
                 required={false}
               />
             </div>
-            <Button type="button" onClick={loginUser} disabled={ isLoading || isError } buttonName="Log in" variant="login" />
+            <Button type="submit" disabled={ isLoading || isError } buttonName="Log in" variant="login" />
             {error.error && <span style={{ color: 'red', fontSize: '12px' }}>{error.error}</span>}
           </form>
         </div>
