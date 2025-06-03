@@ -37,7 +37,7 @@ const LoginInput = ({
           onChange={onChange}
           ref={ref}
           defaultChecked={checked}
-          required = {required && true }
+          required = { required }
         />
         <label htmlFor={id}>{label}</label>
       </div>

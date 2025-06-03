@@ -179,14 +179,16 @@ body {
   line-height: 1.364;
 }
 
-button:disabled {
-  background-color: #0096e0;
-  cursor: not-allowed;
-}
-
 button:hover {
   background-color: #0096e0;
 }
+
+button:disabled {
+  background-color: #0096e0;
+  color: #1010104D;
+  cursor: not-allowed;
+}
+
 .login-button:hover {
   background-color: #0296ce;
 }

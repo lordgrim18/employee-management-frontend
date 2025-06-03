@@ -20,6 +20,7 @@ const Login = () => {
     usernameError: "",
     passwordError: ""
   })
+  const [isError, setIsError] = useState(true);
 
   const navigate = useNavigate()
 
@@ -67,30 +68,22 @@ const Login = () => {
     setError((prevError) => ({
         ...prevError,
         error: ""
-      }))
+      }));
   }, [username, password])
+
+  useEffect(() => {
+    console.log("use effect running");
+    ( error.usernameError || error.passwordError || error.error || username.length === 0 || password.length === 0 ) ? setIsError(true) : setIsError(false)
+  })
+
+  console.log("error", error)
+  console.log("isError", isError);
 
   useEffect(() => {
     if (usernameRef.current) {
       usernameRef.current.focus();
     }
   }, []);
-
-  // const loginUser = () => {
-  //   if (username === sampleUser.username && password === sampleUser.password) {
-  //     localStorage.setItem("isLoggedIn", "true");
-  //     setError((prevError) => ({
-  //       ...prevError,
-  //       error: ""
-  //     }))
-  //     navigate("/employees")
-  //   } else {
-  //     setError((prevError) => ({
-  //       ...prevError,
-  //       error: "Incorrect username or password"
-  //     }))
-  //   }
-  // }
 
   const loginUser = async () => {
     login({ email: username, password: password })
@@ -105,7 +98,7 @@ const Login = () => {
     }).catch((error) => {
       setError((prevError) => ({
         ...prevError,
-        error: error.status == 404 ? "Incorrect username or password" : error.data.message
+        error: error.data.message
       }))
     });
   }
@@ -184,7 +177,7 @@ const Login = () => {
               required={false}
             />
           </div>
-          <Button type="button" onClick={loginUser} disabled={ isLoading } buttonName="Logging in" variant="login" />
+          <Button type="button" onClick={loginUser} disabled={ isLoading || isError } buttonName="Logging in" variant="login" />
           {error.error && <span style={{ color: 'red', fontSize: '12px' }}>{error.error}</span>}
         </form>
       </div>
