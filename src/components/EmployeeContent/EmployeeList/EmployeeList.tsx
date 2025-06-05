@@ -10,6 +10,7 @@ import createIcon from '../../../assets/icons/plus.svg'
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
 import type { Employee } from "../../../store/employee/employee.types";
 import { useDeleteEmployeeMutation, useGetEmployeeListQuery } from "../../../api-service/employees/employees.api";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 const EmployeeList = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -49,7 +50,7 @@ const EmployeeList = () => {
 
   if (employeesError) {
         console.log(employeesError)
-        if (employeesError.status === 401) {
+        if ((employeesError as FetchBaseQueryError).status === 401) {
             localStorage.removeItem("token");
             navigate("/")
         }

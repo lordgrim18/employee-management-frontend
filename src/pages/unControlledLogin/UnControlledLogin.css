@@ -183,6 +183,8 @@ button:hover {
   background-color: #0096e0;
 }
 
+
+
 button:disabled {
   background-color: #0096e0;
   color: #1010104D;
@@ -192,6 +194,15 @@ button:disabled {
 .login-button:hover {
   background-color: #0296ce;
 }
+
+.login--clear-button:disabled {
+  background-color: #b4b7bd;
+}
+
+.login--clear-button:hover {
+  background-color: #1010104D;
+}
+
 
 /* Media query for smaller screens */
 @media screen and (max-width: 1200px) {

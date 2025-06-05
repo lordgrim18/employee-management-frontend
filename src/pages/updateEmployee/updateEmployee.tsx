@@ -6,6 +6,7 @@ import Button from "../../components/Button/Button";
 import EmployeeForm from "../../components/EmployeeContent/EmployeeForm/EmployeeForm";
 import { useGetSingleEmployeeQuery, useUpdateEmployeeMutation } from "../../api-service/employees/employees.api";
 import useEmployeeFormValues, { transformFormValuesToEmployee } from "../../hooks/useEmployeeFormValues";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 const UpdateEmployee = () => {
     const {id} = useParams();
@@ -18,7 +19,7 @@ const UpdateEmployee = () => {
 
     if (employeeError) {
         console.log(employeeError)
-        if (employeeError.status === 401) {
+        if ((employeeError as FetchBaseQueryError).status === 401) {
             localStorage.removeItem("token");
             navigate("/")
         }

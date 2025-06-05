@@ -6,48 +6,79 @@ import Select from "../../Select/Select";
 import MultiInput from "../../MultiInput/MultiInput";
 import VariableSelect from "../../VariableSelect/VariableSelect";
 import { useGetDepartmentListQuery } from "../../../api-service/department/department.api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-interface employeeFormItems {
-  name: string;
-  dateOfJoining: string;
-  experience: number;
-  departmentId: number;
-  role: string;
-  status: string;
-  addressLine1: string;
-  addressLine2?: string;
-  houseNo?: string;
-  pincode: string;
-  employeeId?: string;
-  email: string;
-  password?: string;
-  age: number;
-}
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import type { EmployeeFormValues } from "../../../hooks/useEmployeeFormValues";
 
 const EmployeeForm = ({
   values,
   onChange,
   isEdit,
 }: {
-  values: employeeFormItems;
+  values: EmployeeFormValues;
   onChange: (field: string, value: string) => void;
   isEdit: boolean;
 }) => {
   
-  const [error, setError] = useState({
-    name: "",
-    dateOfJoining: ""
-  })
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({
+    // name: '',
+    // dateOfJoining: '',
+    // experience: '',
+    // departmentId: '',
+    // role: '',
+    // status: '',
+    // addressLine1: '',
+    // addressLine2: '',
+    // houseNo: '',
+    // pincode: '',
+    email: '',
+    password: '', 
+    // age: '',
+  })
+  const [isError, setIsError] = useState(true);
 
   const {data: departmentList, isLoading: isDepartmentLoading, error: departmentsError} = useGetDepartmentListQuery({});
 
+  useEffect(() => {
+    if (values.email && !emailRegex.test(values.email)) 
+      setErrors((prev) => ({
+        ...prev,
+        email: "Invalid Email"
+      }))
+    else 
+      setErrors((prev) => ({
+        ...prev,
+        email: ""
+      }))
+  }, [values.email])
+
+  useEffect(() => {
+    if(!isEdit){
+        if (values.password && values.password.length < 5)
+          setErrors((prev) => ({
+            ...prev,
+            password: "Invalid Password"
+          }))
+        else 
+          setErrors((prev) => ({
+            ...prev,
+            password: ""
+          }))
+    }
+    
+  }, [values.password])
+
+  useEffect(() => {
+      ( errors.email || errors.password ) ? setIsError(true) : setIsError(false)
+    })
+
   if (departmentsError) {
         console.log(departmentsError)
-        if (departmentsError.status === 401) {
+        if ((departmentsError as FetchBaseQueryError).status === 401) {
             localStorage.removeItem("token");
             navigate("/")
         }
@@ -118,6 +149,7 @@ const EmployeeForm = ({
         inputPlaceholder="user@email.com"
         value={values.email}
         onChange={(e) => onChange("email", e.target.value)}
+        error={errors.email}
       />
       {!isEdit && (
         <Input
@@ -128,6 +160,7 @@ const EmployeeForm = ({
           inputPlaceholder="password"
           value={values.password}
           onChange={(e) => onChange("password", e.target.value)}
+          error={errors.password}
         />
       )}
       <Input

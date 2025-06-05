@@ -42,7 +42,7 @@ const CreateEmployee = () => {
       <>
         <h1 className="content-body__header">Create Employee</h1>
         <div className="content-body__form-wrapper">
-          <form className="content-body__form">
+          <form className="content-body__form" onSubmit={createEmployeeClick}>
             <EmployeeForm
               values={values}
               onChange={(field, value) =>
@@ -57,7 +57,7 @@ const CreateEmployee = () => {
               <Button
                 buttonName="Create"
                 variant="create-employee--create"
-                onClick={createEmployeeClick}
+                // onClick={createEmployeeClick}
                 disabled={isLoading}
               />
               <Button

@@ -10,6 +10,7 @@ const Input = ({
   onChange,
   disabled = false,
   required = true,
+  error,
 }: {
   inputId: string;
   inputType: string;
@@ -20,6 +21,7 @@ const Input = ({
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
   required?: boolean;
+  error?: string;
 }) => {
   return (
     <div className={`form-element form-element--${variant}`}>
@@ -33,6 +35,7 @@ const Input = ({
         disabled={disabled}
         required = {required}
       />
+      {<span style={{ color: 'red', fontSize: '12px' }}>{error}</span>}
     </div>
   );
 };

@@ -9,7 +9,7 @@ const MultiInput = ({
 }: {
   variant: string;
   labelName: string;
-  inputs: { id: string; placeholder: string, value: string, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void }[];
+  inputs: { id: string; placeholder: string, value?: string, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void }[];
 }) => {
   return (
     <div className={`form-multi-element form-multi-element--${variant}`}>

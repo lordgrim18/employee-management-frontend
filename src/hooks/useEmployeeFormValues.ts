@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 import type { Employee, Role, Status } from "../store/employee/employee.types";
 
 
-interface EmployeeFormValues {
-
-    id?: number;
+export interface EmployeeFormValues {
     name: string;
     dateOfJoining: string;
     experience: number;

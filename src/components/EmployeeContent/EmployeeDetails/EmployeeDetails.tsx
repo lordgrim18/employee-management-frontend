@@ -15,30 +15,17 @@ const EmployeeDetails = () => {
     const {id} = useParams();
     const {data: validEmployee} = useGetSingleEmployeeQuery({id})
 
-    // let validEmployee : {
-    //     name: string;
-    //     dateOfJoining: string;
-    //     experience: number;
-    //     role: string;
-    //     status: string;
-    //     employeeId: string;
-    //     address: {
-    //         line1: string;
-    //         line2: string;
-    //         houseNo: string;
-    //         pincode: string;
-    //     }
-    // };
-
     return (
             <>
                 <div className="content-body__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h1>
                         Employee Details 
                     </h1>
+                    { validEmployee && 
                     <div className="content-body__header__functions">
                         <HeaderButton icon={editIcon} name="Edit" linkTo="update" disabled={validEmployee ? false : true}/>
                     </div>
+                    }
                 </div>
                 <div className="content-body__form-wrapper">
                     <div className="content-body__form">
