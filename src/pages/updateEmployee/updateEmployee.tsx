@@ -11,7 +11,8 @@ import { useState } from "react";
 
 const UpdateEmployee = () => {
     const {id} = useParams();
-      const [isError, setIsError] = useState(true);
+    const [isError, setIsError] = useState(true);
+    const [error, setError] = useState("");
     
     const {data: employee, isLoading: isEmployeesLoading, error: employeeError} = useGetSingleEmployeeQuery({id})
 
@@ -52,9 +53,11 @@ const UpdateEmployee = () => {
             if (error.status === 401) {
                 localStorage.removeItem("token");
                 navigate("/")
+            } else {
+                error.data.error.includes("duplicate") ? setError("Email already in use. Try a different email.") : setError(error.data.error)
             }
         })
-    }
+    };
 
   return (
         <>
@@ -78,6 +81,8 @@ const UpdateEmployee = () => {
                             isEdit={true}
                             updateIsError={updateIsError}
                         />
+                        {error && <span style={{ color: 'red', fontSize: '12px' }}>{error}</span>
+                        }
                         <div className="content-body__form__submission">
                             <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployeeClick} disabled={isEmployeeUpdating || isError}/>
                             <Button type="button" buttonName="Cancel" variant="create-employee--close" onClick={handleCancel} disabled={isEmployeeUpdating}/>

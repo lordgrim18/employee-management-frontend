@@ -9,6 +9,7 @@ import { useState } from "react";
 
 const CreateEmployee = () => {
   const [isError, setIsError] = useState(true);
+  const [error, setError] = useState("");
   const {values, setValues} = useEmployeeFormValues() 
   const [createEmployee, {isLoading}] = useCreateEmployeeMutation();
   const navigate = useNavigate();
@@ -21,7 +22,6 @@ const CreateEmployee = () => {
     setIsError(type);
   }
 
-  console.log("isError", isError);
 
   const createEmployeeClick = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,11 +37,12 @@ const CreateEmployee = () => {
     .catch((error) => {
       console.log(error)
       if (error.status === 401) {
-            localStorage.removeItem("token");
-            navigate("/")
-        }
+          localStorage.removeItem("token");
+          navigate("/")
+      } else {
+        error.data.error.includes("duplicate") ? setError("Email already in use. Try a different email.") : setError(error.data.error)
+      }
     })
-
   };
 
   return (
@@ -60,6 +61,8 @@ const CreateEmployee = () => {
               isEdit={false}
               updateIsError={updateIsError}
             />
+            {error && <span style={{ color: 'red', fontSize: '12px' }}>{error}</span>
+            }
             <div className="content-body__form__submission">
               <Button
                 buttonName="Create"

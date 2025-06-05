@@ -63,7 +63,7 @@ const EmployeeForm = ({
         if (values.password && values.password.length < 5)
           setErrors((prev) => ({
             ...prev,
-            password: "Invalid Password"
+            password: "Invalid Password: Password must be atlest 5 characters long"
           }))
         else 
           setErrors((prev) => ({
