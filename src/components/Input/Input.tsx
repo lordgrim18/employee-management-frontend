@@ -35,7 +35,7 @@ const Input = ({
         disabled={disabled}
         required = {required}
       />
-      {<span style={{ color: 'red', fontSize: '12px' }}>{error}</span>}
+      {error && <span style={{ color: 'red', fontSize: '12px' }}>{error}</span>}
     </div>
   );
 };
