@@ -7,9 +7,12 @@ import EmployeeForm from "../../components/EmployeeContent/EmployeeForm/Employee
 import { useGetSingleEmployeeQuery, useUpdateEmployeeMutation } from "../../api-service/employees/employees.api";
 import useEmployeeFormValues, { transformFormValuesToEmployee } from "../../hooks/useEmployeeFormValues";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { useState } from "react";
 
 const UpdateEmployee = () => {
     const {id} = useParams();
+      const [isError, setIsError] = useState(true);
+    
     const {data: employee, isLoading: isEmployeesLoading, error: employeeError} = useGetSingleEmployeeQuery({id})
 
     const navigate = useNavigate();
@@ -28,6 +31,10 @@ const UpdateEmployee = () => {
     const handleCancel = () => {
         navigate(-1);
     };
+
+    const updateIsError = (type: boolean) => {
+        setIsError(type);
+    }
 
     const updateEmployeeClick = (e: React.FormEvent) => {
         e.preventDefault();
@@ -69,9 +76,10 @@ const UpdateEmployee = () => {
                                 })
                             }
                             isEdit={true}
+                            updateIsError={updateIsError}
                         />
                         <div className="content-body__form__submission">
-                            <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployeeClick} disabled={isEmployeeUpdating}/>
+                            <Button buttonName="Update" variant="create-employee--create" onClick={updateEmployeeClick} disabled={isEmployeeUpdating || isError}/>
                             <Button type="button" buttonName="Cancel" variant="create-employee--close" onClick={handleCancel} disabled={isEmployeeUpdating}/>
                         </div>
                     </>

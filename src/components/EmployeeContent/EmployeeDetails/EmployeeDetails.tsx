@@ -7,8 +7,6 @@ import "./EmployeeDetails.css";
 // import { useRef } from "react";
 import EmployeeDetailsItem from "./EmployeeDetailsItem/EmployeeDetailsItem";
 import HeaderButton from "../Header/HeaderButton/HeaderButton";
-import { useSelector } from "react-redux";
-import type { EmployeeState } from "../../../store/employee/employee.types";
 import { useGetSingleEmployeeQuery } from "../../../api-service/employees/employees.api";
 
 const EmployeeDetails = () => {

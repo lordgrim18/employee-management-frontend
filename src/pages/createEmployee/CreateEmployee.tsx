@@ -5,17 +5,23 @@ import Button from "../../components/Button/Button";
 import EmployeeForm from "../../components/EmployeeContent/EmployeeForm/EmployeeForm";
 import { useCreateEmployeeMutation } from "../../api-service/employees/employees.api";
 import useEmployeeFormValues, { transformFormValuesToEmployee } from "../../hooks/useEmployeeFormValues";
+import { useState } from "react";
 
 const CreateEmployee = () => {
+  const [isError, setIsError] = useState(true);
   const {values, setValues} = useEmployeeFormValues() 
-
   const [createEmployee, {isLoading}] = useCreateEmployeeMutation();
-
   const navigate = useNavigate();
 
   const handleCancel = () => {
     navigate(-1);
   };
+
+  const updateIsError = (type: boolean) => {
+    setIsError(type);
+  }
+
+  console.log("isError", isError);
 
   const createEmployeeClick = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,13 +58,14 @@ const CreateEmployee = () => {
                 })
               }
               isEdit={false}
+              updateIsError={updateIsError}
             />
             <div className="content-body__form__submission">
               <Button
                 buttonName="Create"
                 variant="create-employee--create"
                 // onClick={createEmployeeClick}
-                disabled={isLoading}
+                disabled={ isLoading || isError }
               />
               <Button
                 type="button"

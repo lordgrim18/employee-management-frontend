@@ -65,7 +65,7 @@ const Login = () => {
   }, [username, password])
 
   useEffect(() => {
-    ( error.usernameError || error.passwordError || error.error || username.length === 0 || password.length === 0 ) ? setIsError(true) : setIsError(false)
+    ( error.usernameError || error.passwordError || error.error) ? setIsError(true) : setIsError(false)
   })
 
   useEffect(() => {

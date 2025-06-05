@@ -6,7 +6,7 @@ import Select from "../../Select/Select";
 import MultiInput from "../../MultiInput/MultiInput";
 import VariableSelect from "../../VariableSelect/VariableSelect";
 import { useGetDepartmentListQuery } from "../../../api-service/department/department.api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import type { EmployeeFormValues } from "../../../hooks/useEmployeeFormValues";
@@ -15,10 +15,12 @@ const EmployeeForm = ({
   values,
   onChange,
   isEdit,
+  updateIsError,
 }: {
   values: EmployeeFormValues;
   onChange: (field: string, value: string) => void;
   isEdit: boolean;
+  updateIsError: (type: boolean) => void;
 }) => {
   
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,7 +41,7 @@ const EmployeeForm = ({
     password: '', 
     // age: '',
   })
-  const [isError, setIsError] = useState(true);
+  // const [isError, setIsError] = useState(true);
 
   const {data: departmentList, isLoading: isDepartmentLoading, error: departmentsError} = useGetDepartmentListQuery({});
 
@@ -73,7 +75,7 @@ const EmployeeForm = ({
   }, [values.password])
 
   useEffect(() => {
-      ( errors.email || errors.password ) ? setIsError(true) : setIsError(false)
+      ( errors.email || errors.password ) ? updateIsError(true) : updateIsError(false)
     })
 
   if (departmentsError) {
